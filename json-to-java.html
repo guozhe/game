@@ -553,21 +553,43 @@
             </a>
             <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
             <div class="nav-links" id="navLinks">
-                <a href="/">JSON解析</a>
-                <a href="/json-format.html">JSON格式化</a>
-                <a href="/json-compress.html">JSON压缩</a>
-                <a href="/json-to-java.html" class="active">JSON转Java</a>
-                <a href="/json-to-python.html">JSON转Python</a>
-                <a href="/timestamp.html">时间戳</a>
-                <a href="/url-encode.html">URL编码</a>
-                <a href="/base64.html">Base64</a>
+                <!-- JSON工具 -->
+                <div class="nav-item">
+                    <a href="/">JSON解析 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/">JSON解析</a>
+                        <a href="/json-format.html">JSON格式化</a>
+                        <a href="/json-compress.html">JSON压缩</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/json-to-java.html" class="active">JSON转Java</a>
+                        <a href="/json-to-python.html">JSON转Python</a>
+                    </div>
+                </div>
+                
+                <!-- 编码转换 -->
+                <div class="nav-item">
+                    <a href="/timestamp.html">编码转换 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/timestamp.html">时间戳转换</a>
+                        <a href="/url-encode.html">URL编码解码</a>
+                        <a href="/base64.html">Base64编码解码</a>
+                    </div>
+                </div>
+                
+                <!-- 设计工具 -->
+                <div class="nav-item">
+                    <a href="/color-converter.html">设计工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/color-converter.html">颜色转换</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
     
     <div class="container">
         <!-- 广告位 -->
-        <div class="ad-container ad-top">
+        <div class="ad-container ad-top" style="display:none;">
             广告位 728x90
         </div>
         
