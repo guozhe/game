@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- SEO核心标签 -->
-    <title>JSON在线解析格式化工具 - JSON.cn</title>
+    <title>开发工具在线 - 程序员必备在线开发工具大全</title>
     <meta name="description" content="免费的JSON在线解析工具，提供JSON格式化、校验、压缩、转义、JSON转Java、JSON转Python等实用功能。无需注册，打开即可使用，数据本地处理安全无忧。">
     <meta name="keywords" content="JSON解析,JSON格式化,JSON校验,JSON压缩,JSON转Java,在线JSON工具">
-    <meta name="author" content="JSON工具箱">
-    <link rel="canonical" href="https://your-domain.com/">
+    <meta name="author" content="开发工具在线">
+    <link rel="canonical" href="https://kaifagongju.com/">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="JSON在线解析格式化工具">
     <meta property="og:description" content="免费的JSON在线解析工具，提供格式化、校验、压缩、转义等功能">
-    <meta property="og:url" content="https://your-domain.com/">
-    <meta property="og:site_name" content="JSON工具箱">
+    <meta property="og:url" content="https://kaifagongju.com/">
+    <meta property="og:site_name" content="开发工具在线">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
@@ -77,16 +77,19 @@
         }
         
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: white;
-            border-radius: 6px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #667eea;
-            font-weight: bold;
-            font-size: 16px;
+            overflow: hidden;
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
         .nav-links {
@@ -507,21 +510,82 @@
             }
         }
         
-        @media (max-width: 600px) {
-            .nav-links {
-                display: none;
-                width: 100%;
-                padding-top: 15px;
-            }
-            
-            .nav-links.active {
-                display: flex;
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-wrap: wrap;
             }
             
             .mobile-menu-btn {
                 display: block;
             }
             
+            .nav-links {
+                width: 100%;
+                flex-direction: column;
+                max-height: 0;
+                overflow: hidden;
+                padding: 0;
+                gap: 0;
+                transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            }
+            
+            .nav-links.active {
+                max-height: 500px;
+                padding: 15px 0;
+            }
+            
+            .nav-item {
+                width: 100%;
+            }
+            
+            .nav-item > a {
+                width: 100%;
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .nav-item > a .arrow {
+                margin-left: auto;
+                transition: transform 0.3s ease;
+            }
+            
+            .nav-dropdown {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                background: rgba(255,255,255,0.1);
+                border-radius: 0;
+                max-height: 0;
+                overflow: hidden;
+                padding: 0;
+                transition: max-height 0.3s ease-out;
+            }
+            
+            .nav-item.expanded > a .arrow {
+                transform: rotate(180deg);
+            }
+            
+            .nav-item.expanded > .nav-dropdown {
+                max-height: 300px;
+            }
+            
+            .nav-dropdown a {
+                padding: 10px 15px 10px 30px;
+                color: rgba(255,255,255,0.85);
+                font-size: 13px;
+            }
+            
+            .nav-dropdown a:hover {
+                background: rgba(255,255,255,0.15);
+                color: white;
+            }
+            
+            .nav-dropdown-divider {
+                background: rgba(255,255,255,0.2);
+            }
+        }
+        
+        @media (max-width: 600px) {
             .tool-header h1 {
                 font-size: 18px;
             }
@@ -750,7 +814,7 @@
         "@type": "WebApplication",
         "name": "JSON在线解析格式化工具",
         "description": "免费的JSON在线解析工具，提供格式化、校验、压缩、转义等功能",
-        "url": "https://your-domain.com/",
+        "url": "https://kaifagongju.com/",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "All",
         "offers": {
@@ -766,8 +830,8 @@
     <nav class="navbar">
         <div class="container">
             <a href="/" class="logo">
-                <span class="logo-icon">{ }</span>
-                JSON工具箱
+                <span class="logo-icon"><img src="/images/logo.png" alt="开发工具在线"></span>
+                开发工具在线
             </a>
             <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
             <div class="nav-links" id="navLinks">
@@ -801,7 +865,7 @@
                         <a href="/color-converter.html">颜色转换</a>
                     </div>
                 </div>
-            </div>
+            <div class="nav-item"><a href="/tables.html">更多工具 <span class="arrow">▼</span></a><div class="nav-dropdown"><a href="/tables.html">常用对照表</a><a href="/diff.html">代码对比</a></div></div></div>
         </div>
     </nav>
     
@@ -935,7 +999,7 @@
         
         <!-- 功能介绍 -->
         <section class="feature-section">
-            <h2>JSON工具箱 - 开发者必备工具</h2>
+            <h2>开发工具在线 - 开发者必备工具</h2>
             <ul>
                 <li>JSON语法校验，自动定位错误位置</li>
                 <li>JSON格式化/压缩，一键转换</li>
@@ -991,12 +1055,7 @@
                 <p>Base64字符串编码与解码</p>
             </a>
             
-            <a href="/color-converter.html" class="tool-card">
-                <div class="tool-card-icon" style="background: #efebe9; color: #795548;">🎨</div>
-                <h3>颜色转换</h3>
-                <p>HEX/RGB/HSL颜色格式互转</p>
-            </a>
-        </div>
+            <a href="/color-converter.html" class="tool-card"><div class="tool-card-icon" style="background: #efebe9; color: #795548;">🎨</div><h3>颜色转换</h3><p>HEX/RGB/HSL颜色格式互转</p></a><a href="/tables.html" class="tool-card"><div class="tool-card-icon" style="background: #e0f7fa; color: #00bcd4;">📊</div><h3>常用对照表</h3><p>MIME类型、HTML转义、颜色、ASCII、HTTP状态码</p></a><a href="/diff.html" class="tool-card"><div class="tool-card-icon" style="background: #fff3e0; color: #ff9800;">⚖️</div><h3>代码对比</h3><p>比较两段代码的差异，高亮显示变化</p></a></div>
         
         <!-- 底部广告 -->
         <div class="ad-container ad-top" id="bottomAdContainer" style="margin-top: 30px; display:none;">
@@ -1011,7 +1070,7 @@
                 <div class="footer-section">
                     <h4>关于网站</h4>
                     <p style="font-size: 14px; line-height: 1.8;">
-                        JSON工具箱是一个免费的在线开发者工具网站，提供JSON解析、格式化、校验等实用功能。无需注册，打开即可使用，数据全程本地处理，安全放心。
+                        开发工具在线是一个免费的在线开发者工具网站，提供JSON解析、格式化、校验等实用功能。无需注册，打开即可使用，数据全程本地处理，安全放心。
                     </p>
                 </div>
                 
@@ -1042,7 +1101,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 JSON工具箱 版权所有 | 
+                <p>&copy; 2024 开发工具在线 版权所有 | 
                 <a href="/sitemap.xml" style="color: #a0aec0;">网站地图</a> | 
                 ICP备案号: xxxxxx</p>
             </div>
@@ -1538,6 +1597,36 @@
         function toggleMenu() {
             document.getElementById('navLinks').classList.toggle('active');
         }
+        
+        // 移动端下拉菜单点击展开
+        function toggleDropdown(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const navItem = event.currentTarget.parentElement;
+            navItem.classList.toggle('expanded');
+        }
+        
+        // 初始化移动端下拉菜单
+        document.addEventListener('DOMContentLoaded', function() {
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                document.querySelectorAll('.nav-item > a').forEach(function(link) {
+                    link.addEventListener('click', toggleDropdown);
+                });
+            }
+        });
+        
+        // 窗口大小变化时重新绑定事件
+        window.addEventListener('resize', function() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.nav-item > a').forEach(function(link) {
+                if (isMobile) {
+                    link.addEventListener('click', toggleDropdown);
+                } else {
+                    link.removeEventListener('click', toggleDropdown);
+                }
+            });
+        });
         
         // 输入时实时更新字符数
         document.getElementById('jsonInput').addEventListener('input', updateCharCount);

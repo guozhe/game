@@ -1,0 +1,518 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO核心标签 -->
+    <title>隐私政策 - 开发工具在线</title>
+    <meta name="description" content="开发工具在线隐私政策说明。我们重视您的隐私，所有数据处理均在本地完成，不会上传或存储您的任何数据。">
+    <meta name="keywords" content="隐私政策,隐私保护,数据安全,开发工具,在线工具">
+    <meta name="author" content="开发工具在线">
+    <link rel="canonical" href="https://kaifagongju.com/privacy.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="隐私政策 - 开发工具在线">
+    <meta property="og:description" content="开发工具在线隐私政策说明 - 您的数据安全是我们的首要任务">
+    <meta property="og:url" content="https://kaifagongju.com/privacy.html">
+    <meta property="og:site_name" content="开发工具在线">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="隐私政策 - 开发工具在线">
+    <meta name="twitter:description" content="开发工具在线隐私政策说明">
+    
+    <!-- 页面图标 -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item > a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        
+        .nav-item > a:hover, .nav-item > a.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .nav-item > a .arrow {
+            font-size: 10px;
+            transition: transform 0.2s;
+        }
+        
+        .nav-item:hover > a .arrow {
+            transform: rotate(180deg);
+        }
+        
+        /* 下拉菜单 */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            min-width: 180px;
+            padding: 8px 0;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .nav-item:hover > .nav-dropdown {
+            display: block;
+        }
+        
+        .nav-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        
+        .nav-dropdown a:hover {
+            background: #f5f7fa;
+            color: #667eea;
+        }
+        
+        .nav-dropdown-divider {
+            height: 1px;
+            background: #e1e4e8;
+            margin: 8px 0;
+        }
+        
+        /* 移动端菜单 */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 主要内容 */
+        .main-content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+        
+        .page-header p {
+            color: #718096;
+            font-size: 18px;
+        }
+        
+        /* 内容卡片 */
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .content-card h2 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .content-card h3 {
+            font-size: 18px;
+            color: #4a5568;
+            margin: 24px 0 12px 0;
+        }
+        
+        .content-card p {
+            color: #4a5568;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+        
+        .content-card ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .content-card ul li {
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            color: #4a5568;
+        }
+        
+        .content-card ul li::before {
+            content: "•";
+            position: absolute;
+            left: 8px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        /* 强调框 */
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px 24px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        
+        .highlight-box p {
+            margin: 0;
+            color: #2d3748;
+        }
+        
+        .highlight-box strong {
+            color: #667eea;
+        }
+        
+        /* 底部 */
+        .footer {
+            background: #2d3748;
+            color: #a0aec0;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-links {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer p {
+            font-size: 14px;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                flex-direction: column;
+                padding: 10px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .content-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon"><img src="/images/logo.png" alt="开发工具在线"></span>
+                开发工具在线
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <!-- JSON工具 -->
+                <div class="nav-item">
+                    <a href="/">JSON解析 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/">JSON解析</a>
+                        <a href="/json-format.html">JSON格式化</a>
+                        <a href="/json-compress.html">JSON压缩</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/json-to-java.html">JSON转Java</a>
+                        <a href="/json-to-python.html">JSON转Python</a>
+                    </div>
+                </div>
+                
+                <!-- 编码转换 -->
+                <div class="nav-item">
+                    <a href="/timestamp.html">编码转换 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/timestamp.html">时间戳转换</a>
+                        <a href="/url-encode.html">URL编码解码</a>
+                        <a href="/base64.html">Base64编码解码</a>
+                    </div>
+                </div>
+                
+                <!-- 设计工具 -->
+                <div class="nav-item">
+                    <a href="/color-converter.html">设计工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/color-converter.html">颜色转换</a>
+                    </div>
+                </div>
+            <div class="nav-item"><a href="/tables.html">更多工具 <span class="arrow">▼</span></a><div class="nav-dropdown"><a href="/tables.html">常用对照表</a><a href="/diff.html">代码对比</a></div></div></div>
+        </div>
+    </nav>
+    
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>隐私政策</h1>
+            <p>您的数据安全是我们的首要任务</p>
+        </div>
+        
+        <!-- 核心承诺 -->
+        <div class="content-card">
+            <div class="highlight-box">
+                <p><strong>核心承诺：</strong>开发工具在线所有工具均在您的浏览器本地运行，<strong>您的数据不会上传到我们的服务器</strong>。我们不会在服务器端存储、分析或处理您输入的任何数据。</p>
+            </div>
+        </div>
+        
+        <!-- 数据处理方式 -->
+        <div class="content-card">
+            <h2>数据处理方式</h2>
+            <p>我们的所有在线工具都采用纯前端技术实现，这意味着：</p>
+            <ul>
+                <li><strong>本地处理</strong>：所有数据转换、格式化、编码解码等操作都在您的浏览器中完成</li>
+                <li><strong>无数据上传</strong>：您输入的数据不会被发送到我们的服务器</li>
+                <li><strong>无数据存储</strong>：我们不会保存您的任何输入内容或处理结果</li>
+                <li><strong>关闭即清除</strong>：刷新或关闭页面后，所有数据将从内存中清除</li>
+            </ul>
+        </div>
+        
+        <!-- 收集的信息 -->
+        <div class="content-card">
+            <h2>我们收集的信息</h2>
+            <h3>1. 自动收集的信息</h3>
+            <p>当您访问我们的网站时，我们可能会自动收集以下信息：</p>
+            <ul>
+                <li>浏览器类型和版本</li>
+                <li>操作系统类型</li>
+                <li>访问时间和日期</li>
+                <li>访问的页面</li>
+                <li>引荐来源（您从哪个网站跳转到本站）</li>
+                <li>IP地址（用于统计分析，不会用于个人识别）</li>
+            </ul>
+            
+            <h3>2. Cookie 使用</h3>
+            <p>我们使用 Cookie 来改善用户体验：</p>
+            <ul>
+                <li><strong>必要 Cookie</strong>：用于网站基本功能的正常运行</li>
+                <li><strong>分析 Cookie</strong>：用于了解网站使用情况，优化服务（如 Google Analytics）</li>
+                <li><strong>偏好 Cookie</strong>：用于记住您的设置偏好（如主题选择）</li>
+            </ul>
+            <p>您可以通过浏览器设置禁用 Cookie，但这可能影响部分功能的使用。</p>
+        </div>
+        
+        <!-- 信息使用 -->
+        <div class="content-card">
+            <h2>信息使用目的</h2>
+            <p>我们收集的信息仅用于以下目的：</p>
+            <ul>
+                <li>提供、维护和改进我们的服务</li>
+                <li>分析网站使用情况，优化用户体验</li>
+                <li>检测和防止技术问题或安全威胁</li>
+                <li>生成匿名的使用统计报告</li>
+            </ul>
+            <p><strong>重要声明：</strong>我们不会出售、交易或以其他方式向第三方转让您的个人身份信息。</p>
+        </div>
+        
+        <!-- 第三方服务 -->
+        <div class="content-card">
+            <h2>第三方服务</h2>
+            <p>我们的网站可能使用以下第三方服务：</p>
+            <ul>
+                <li><strong>Google Analytics</strong>：用于网站流量分析（收集匿名数据）</li>
+                <li><strong>广告服务</strong>：可能使用 Cookie 提供相关广告</li>
+                <li><strong>CDN 服务</strong>：用于加速静态资源加载</li>
+            </ul>
+            <p>这些第三方服务有其独立的隐私政策，我们建议您查阅相关服务的隐私条款。</p>
+        </div>
+        
+        <!-- 数据安全 -->
+        <div class="content-card">
+            <h2>数据安全</h2>
+            <p>我们采取以下措施保护您的信息安全：</p>
+            <ul>
+                <li>使用 HTTPS 加密传输所有数据</li>
+                <li>定期更新系统和软件以修复安全漏洞</li>
+                <li>限制对服务器和数据库的访问权限</li>
+                <li>定期进行安全审查和风险评估</li>
+            </ul>
+        </div>
+        
+        <!-- 用户权利 -->
+        <div class="content-card">
+            <h2>您的权利</h2>
+            <p>根据适用的数据保护法律，您享有以下权利：</p>
+            <ul>
+                <li><strong>知情权</strong>：了解我们如何收集和使用您的数据</li>
+                <li><strong>访问权</strong>：获取我们持有的关于您的个人信息</li>
+                <li><strong>更正权</strong>：要求更正不准确的个人信息</li>
+                <li><strong>删除权</strong>：要求删除您的个人信息</li>
+                <li><strong>限制处理权</strong>：限制我们对您数据的处理</li>
+                <li><strong>反对权</strong>：反对某些类型的数据处理</li>
+            </ul>
+            <p>如需行使上述权利，请通过页面底部的联系方式与我们联系。</p>
+        </div>
+        
+        <!-- 政策更新 -->
+        <div class="content-card">
+            <h2>政策更新</h2>
+            <p>我们可能会不时更新本隐私政策。任何更改将在本页面发布，并在页面顶部标注最后更新日期。</p>
+            <p>我们建议您定期查看本页面以了解最新的隐私保护措施。</p>
+            <p><strong>最后更新日期：</strong>2024年1月1日</p>
+        </div>
+        
+        <!-- 联系我们 -->
+        <div class="content-card">
+            <h2>联系我们</h2>
+            <p>如果您对本隐私政策有任何疑问或建议，欢迎通过以下方式联系我们：</p>
+            <ul>
+                <li><strong>邮箱：</strong>contact@kaifagongju.com</li>
+                <li><strong>网站：</strong>kaifagongju.com</li>
+            </ul>
+        </div>
+    </main>
+    
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="/">返回首页</a>
+                <a href="/json-format.html">JSON工具</a>
+                <a href="/base64.html">编码工具</a>
+                <a href="/sitemap.xml">站点地图</a>
+            </div>
+            <p>© 2024 开发工具在线 - 免费在线开发工具平台 | 让开发更简单</p>
+        </div>
+    </footer>
+    
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

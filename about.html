@@ -1,0 +1,556 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO核心标签 -->
+    <title>关于我们 - 开发工具在线</title>
+    <meta name="description" content="了解开发工具在线，我们致力于为程序员提供免费、高效、便捷的在线开发工具。所有工具无需注册，数据本地处理安全无忧。">
+    <meta name="keywords" content="关于我们,开发工具,在线工具,程序员工具,JSON工具">
+    <meta name="author" content="开发工具在线">
+    <link rel="canonical" href="https://kaifagongju.com/about.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="关于我们 - 开发工具在线">
+    <meta property="og:description" content="了解开发工具在线，我们致力于为程序员提供免费、高效的在线开发工具">
+    <meta property="og:url" content="https://kaifagongju.com/about.html">
+    <meta property="og:site_name" content="开发工具在线">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="关于我们 - 开发工具在线">
+    <meta name="twitter:description" content="了解开发工具在线">
+    
+    <!-- 页面图标 -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item > a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        
+        .nav-item > a:hover, .nav-item > a.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .nav-item > a .arrow {
+            font-size: 10px;
+            transition: transform 0.2s;
+        }
+        
+        .nav-item:hover > a .arrow {
+            transform: rotate(180deg);
+        }
+        
+        /* 下拉菜单 */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            min-width: 180px;
+            padding: 8px 0;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .nav-item:hover > .nav-dropdown {
+            display: block;
+        }
+        
+        .nav-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        
+        .nav-dropdown a:hover {
+            background: #f5f7fa;
+            color: #667eea;
+        }
+        
+        .nav-dropdown-divider {
+            height: 1px;
+            background: #e1e4e8;
+            margin: 8px 0;
+        }
+        
+        /* 移动端菜单 */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 主要内容 */
+        .main-content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+        
+        .page-header p {
+            color: #718096;
+            font-size: 18px;
+        }
+        
+        /* 内容卡片 */
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .content-card h2 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .content-card p {
+            color: #4a5568;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+        
+        .content-card ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .content-card ul li {
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            color: #4a5568;
+        }
+        
+        .content-card ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        /* 特性网格 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        
+        .feature-item {
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+        
+        .feature-item h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .feature-item p {
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        /* 联系信息 */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+        
+        .contact-item .icon {
+            font-size: 24px;
+        }
+        
+        .contact-item .label {
+            font-size: 12px;
+            color: #718096;
+        }
+        
+        .contact-item .value {
+            font-size: 15px;
+            color: #2d3748;
+            font-weight: 500;
+        }
+        
+        /* 底部 */
+        .footer {
+            background: #2d3748;
+            color: #a0aec0;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-links {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer p {
+            font-size: 14px;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                flex-direction: column;
+                padding: 10px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .content-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon"><img src="/images/logo.png" alt="开发工具在线"></span>
+                开发工具在线
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <!-- JSON工具 -->
+                <div class="nav-item">
+                    <a href="/">JSON解析 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/">JSON解析</a>
+                        <a href="/json-format.html">JSON格式化</a>
+                        <a href="/json-compress.html">JSON压缩</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/json-to-java.html">JSON转Java</a>
+                        <a href="/json-to-python.html">JSON转Python</a>
+                    </div>
+                </div>
+                
+                <!-- 编码转换 -->
+                <div class="nav-item">
+                    <a href="/timestamp.html">编码转换 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/timestamp.html">时间戳转换</a>
+                        <a href="/url-encode.html">URL编码解码</a>
+                        <a href="/base64.html">Base64编码解码</a>
+                    </div>
+                </div>
+                
+                <!-- 设计工具 -->
+                <div class="nav-item">
+                    <a href="/color-converter.html">设计工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/color-converter.html">颜色转换</a>
+                    </div>
+                </div>
+            <div class="nav-item"><a href="/tables.html">更多工具 <span class="arrow">▼</span></a><div class="nav-dropdown"><a href="/tables.html">常用对照表</a><a href="/diff.html">代码对比</a></div></div></div>
+        </div>
+    </nav>
+    
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>关于我们</h1>
+            <p>为开发者提供便捷、高效的在线工具</p>
+        </div>
+        
+        <!-- 简介 -->
+        <div class="content-card">
+            <h2>网站简介</h2>
+            <p>
+                <strong>开发工具在线</strong>成立于2024年，是一个专注于为程序员和开发者提供免费在线工具的平台。我们的使命是简化开发工作流程，让日常开发任务变得更加高效便捷。
+            </p>
+            <p>
+                我们深知开发者在日常工作中会遇到各种重复性的编码任务，因此我们精心打造了一系列实用工具，涵盖JSON处理、格式转换、编码解码等多个领域。所有工具都经过优化，确保运行速度快、结果准确、使用简单。
+            </p>
+        </div>
+        
+        <!-- 核心优势 -->
+        <div class="content-card">
+            <h2>我们的优势</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h3>数据安全</h3>
+                    <p>所有数据处理均在本地完成，不会上传到服务器，保护您的隐私和数据安全</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3>极速响应</h3>
+                    <p>采用轻量级设计，打开即可使用，无需等待，即时获得处理结果</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h3>响应式设计</h3>
+                    <p>完美适配桌面端和移动端，随时随地访问使用，方便快捷</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h3>免费使用</h3>
+                    <p>所有工具完全免费，无需注册登录，无任何使用限制</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <h3>持续更新</h3>
+                    <p>不断添加新功能和工具，根据用户反馈持续优化体验</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌐</div>
+                    <h3>跨平台支持</h3>
+                    <p>支持所有主流浏览器，Windows、Mac、Linux系统均可使用</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 服务内容 -->
+        <div class="content-card">
+            <h2>服务内容</h2>
+            <p>我们提供以下类型的在线开发工具：</p>
+            <ul>
+                <li><strong>JSON工具系列</strong>：JSON格式化、JSON校验、JSON压缩、JSON语法纠错等</li>
+                <li><strong>代码转换工具</strong>：JSON转Java、JSON转Python、JSON转其他语言格式</li>
+                <li><strong>编码解码工具</strong>：Base64编解码、URL编解码、Unicode转换</li>
+                <li><strong>实用转换工具</strong>：Unix时间戳转换、颜色格式转换等</li>
+            </ul>
+        </div>
+        
+        <!-- 使用条款 -->
+        <div class="content-card">
+            <h2>使用条款</h2>
+            <p>欢迎使用开发工具在线！我们希望为您提供一个安全、合规的服务环境，请您在使用前仔细阅读以下条款：</p>
+            <ul>
+                <li>本网站上所有工具仅供合法用途使用</li>
+                <li>用户在使用工具时，请确保拥有处理相关数据的合法权利</li>
+                <li>我们保留对服务进行修改、暂停或终止的权利</li>
+                <li>本网站不对用户因使用工具而产生的任何直接或间接损失负责</li>
+                <li>用户应遵守当地法律法规，不得利用本网站从事违法活动</li>
+            </ul>
+        </div>
+        
+        <!-- 联系我们 -->
+        <div class="content-card">
+            <h2>联系我们</h2>
+            <p>如果您在使用过程中遇到任何问题，或者有任何建议和反馈，欢迎随时联系我们：</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="icon">📧</span>
+                    <div>
+                        <div class="label">邮箱地址</div>
+                        <div class="value">contact@kaifagongju.com</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">🌐</span>
+                    <div>
+                        <div class="label">网站地址</div>
+                        <div class="value">kaifagongju.com</div>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: #718096; font-size: 14px;">
+                * 我们会尽快回复您的来信，但由于精力有限，可能无法逐一回复所有邮件，敬请谅解。
+            </p>
+        </div>
+        
+        <!-- 感谢 -->
+        <div class="content-card" style="text-align: center; padding: 50px 40px;">
+            <h2 style="border: none; padding: 0;">感谢您的信任</h2>
+            <p style="font-size: 18px; color: #667eea; margin-top: 20px;">
+                您的支持是我们不断前进的动力，我们将继续努力为您提供更好的服务体验。
+            </p>
+        </div>
+    </main>
+    
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="/">返回首页</a>
+                <a href="/json-format.html">JSON工具</a>
+                <a href="/base64.html">编码工具</a>
+                <a href="/sitemap.xml">站点地图</a>
+            </div>
+            <p>© 2024 开发工具在线 - 免费在线开发工具平台 | 让开发更简单</p>
+        </div>
+    </footer>
+    
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
