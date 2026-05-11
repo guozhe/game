@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://your-domain.com/sitemap.xml
+
+# 爬虫配置
+Crawl-delay: 1
+
+# 禁止爬取后台页面
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
