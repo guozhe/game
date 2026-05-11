@@ -34,8 +34,36 @@
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "JSON压缩工具",
-        "description": "一键压缩JSON数据，去除多余空格换行",
-        "url": "https://kaifagongju.com/json-compress.html"
+        "description": "JSON压缩工具，一键去除JSON中的空格和换行，减小数据体积。显示压缩前后体积对比，支持快速复制压缩结果。",
+        "url": "https://kaifagongju.com/json-compress.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        }
+    }
+    </script>
+    <!-- 面包屑结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://kaifagongju.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "JSON压缩",
+                "item": "https://kaifagongju.com/json-compress.html"
+            }
+        ]
     }
     </script>
     
@@ -665,6 +693,57 @@
         .example-modal .btn-group {
             margin-bottom: 0;
         }
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 14px 0;
+            font-size: 13px;
+        }
+        
+        .breadcrumb-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(102,126,234,0.15);
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: #764ba2;
+            text-decoration: none;
+            transform: translateX(2px);
+        }
+        
+        .breadcrumb .separator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            margin: 0 2px;
+        }
+        
+        .breadcrumb .current {
+            color: #764ba2;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -697,6 +776,9 @@
                         <a href="/timestamp.html">时间戳转换</a>
                         <a href="/url-encode.html">URL编码解码</a>
                         <a href="/base64.html">Base64编码解码</a>
+                        <a href="/md5.html">MD5加密</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/uuid.html">UUID生成</a>
                     </div>
                 </div>
                 
@@ -705,11 +787,37 @@
                     <a href="/color-converter.html">设计工具 <span class="arrow">▼</span></a>
                     <div class="nav-dropdown">
                         <a href="/color-converter.html">颜色转换</a>
+                        <a href="/tables.html">常用对照表</a>
                     </div>
                 </div>
-            <div class="nav-item"><a href="/tables.html">更多工具 <span class="arrow">▼</span></a><div class="nav-dropdown"><a href="/tables.html">常用对照表</a><a href="/diff.html">代码对比</a></div></div></div>
+                <!-- 更多工具 -->
+                <div class="nav-item">
+                    <a href="/tables.html">更多工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/tables.html">常用对照表</a>
+                        <a href="/diff.html">代码对比</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
+    
+    <!-- 面包屑导航 -->
+    <div class="container">
+        <nav class="breadcrumb" aria-label="面包屑导航">
+            <span class="breadcrumb-box">
+                <a href="/">🏠 首页</a>
+                <span class="separator">›</span>
+            </span>
+            <span class="breadcrumb-box">
+                <a href="/">📋 JSON解析</a>
+                <span class="separator">›</span>
+            </span>
+            <span class="breadcrumb-box">
+                <span class="current">📦 JSON压缩</span>
+            </span>
+        </nav>
+    </div>
     
     <!-- 顶部广告位 -->
     <div class="container">

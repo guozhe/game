@@ -30,6 +30,45 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Web开发常用对照表大全",
+        "description": "有完整的Web开发常用对照表，包含MIME类型(Content-Type)对照表、HTML转义字符、RGB颜色代码、ASCII码表、HTTP状态码详解。程序员必备参考工具，无需注册免费使用。",
+        "url": "https://kaifagongju.com/tables.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        }
+    }
+    </script>
+    <!-- 面包屑结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://kaifagongju.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "常用对照表",
+                "item": "https://kaifagongju.com/tables.html"
+            }
+        ]
+    }
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -574,24 +613,76 @@
         
         /* 响应式 */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                flex-direction: column;
-                padding: 10px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            }
-            
-            .nav-links.active {
-                display: flex;
+            .navbar .container {
+                flex-wrap: wrap;
             }
             
             .mobile-menu-btn {
                 display: block;
+            }
+            
+            .nav-links {
+                width: 100%;
+                flex-direction: column;
+                max-height: 0;
+                overflow: hidden;
+                padding: 0;
+                gap: 0;
+                transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            }
+            
+            .nav-links.active {
+                max-height: 500px;
+                padding: 15px 0;
+            }
+            
+            .nav-item {
+                width: 100%;
+            }
+            
+            .nav-item > a {
+                width: 100%;
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .nav-item > a .arrow {
+                margin-left: auto;
+                transition: transform 0.3s ease;
+            }
+            
+            .nav-dropdown {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                background: rgba(255,255,255,0.1);
+                border-radius: 0;
+                max-height: 0;
+                overflow: hidden;
+                padding: 0;
+                transition: max-height 0.3s ease-out;
+            }
+            
+            .nav-item.expanded > a .arrow {
+                transform: rotate(180deg);
+            }
+            
+            .nav-item.expanded > .nav-dropdown {
+                max-height: 300px;
+            }
+            
+            .nav-dropdown a {
+                padding: 10px 15px 10px 30px;
+                color: rgba(255,255,255,0.85);
+            }
+            
+            .nav-dropdown a:hover {
+                background: rgba(255,255,255,0.15);
+                color: white;
+            }
+            
+            .nav-dropdown-divider {
+                background: rgba(255,255,255,0.2);
             }
             
             .page-header {
@@ -627,6 +718,57 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 14px 0;
+            font-size: 13px;
+        }
+        
+        .breadcrumb-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(102,126,234,0.15);
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: #764ba2;
+            text-decoration: none;
+            transform: translateX(2px);
+        }
+        
+        .breadcrumb .separator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            margin: 0 2px;
+        }
+        
+        .breadcrumb .current {
+            color: #764ba2;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -657,19 +799,49 @@
                         <a href="/timestamp.html">时间戳转换</a>
                         <a href="/url-encode.html">URL编码解码</a>
                         <a href="/base64.html">Base64编码解码</a>
+                        <a href="/md5.html">MD5加密</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/uuid.html">UUID生成</a>
                     </div>
                 </div>
                 
+                <!-- 设计工具 -->
                 <div class="nav-item">
                     <a href="/color-converter.html">设计工具 <span class="arrow">▼</span></a>
                     <div class="nav-dropdown">
                         <a href="/color-converter.html">颜色转换</a>
-                        <a href="/tables.html">常用对照表</a><a href="/diff.html">代码对比</a>
+                        <a href="/tables.html">常用对照表</a>
+                    </div>
+                </div>
+                
+                <!-- 更多工具 -->
+                <div class="nav-item">
+                    <a href="/tables.html">更多工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/tables.html" class="active">常用对照表</a>
+                        <a href="/diff.html">代码对比</a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+    
+    <!-- 面包屑导航 -->
+    <div class="container">
+        <nav class="breadcrumb" aria-label="面包屑导航">
+            <span class="breadcrumb-box">
+                <a href="/">🏠 首页</a>
+                <span class="separator">›</span>
+            </span>
+            <span class="breadcrumb-box">
+                <a href="/tables.html">📚 更多工具</a>
+                <span class="separator">›</span>
+            </span>
+            <span class="breadcrumb-box">
+                <span class="current">📊 常用对照表</span>
+            </span>
+        </nav>
+    </div>
     
     <!-- 主要内容 -->
     <main class="main-content" role="main">
@@ -1038,6 +1210,24 @@
         function toggleMenu() {
             document.getElementById('navLinks').classList.toggle('active');
         }
+        
+        // 移动端下拉菜单点击展开
+        function toggleDropdown(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const navItem = event.currentTarget.parentElement;
+            navItem.classList.toggle('expanded');
+        }
+        
+        // 初始化移动端下拉菜单
+        document.addEventListener('DOMContentLoaded', function() {
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                document.querySelectorAll('.nav-item > a').forEach(function(link) {
+                    link.addEventListener('click', toggleDropdown);
+                });
+            }
+        });
         
         // 平滑滚动到锚点
         document.querySelectorAll('.toc-list a[href^="#"]').forEach(anchor => {

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>UUID在线生成器 - 批量生成唯一标识符 | 开发工具在线</title>
+    <meta name="description" content="免费的在线UUID生成器，支持批量生成UUID v4，可自定义生成数量，一键复制。适用于分布式系统、数据库主键等场景。">
+    <meta name="keywords" content="UUID生成器,UUID在线生成,GUID生成,唯一标识符,批量生成UUID">
+    <meta name="author" content="开发工具在线">
+    <link rel="canonical" href="https://kaifagongju.com/uuid.html">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "UUID在线生成器",
+        "description": "免费的在线UUID生成器，支持批量生成UUID v4，可自定义生成数量，一键复制。适用于分布式系统、数据库主键等场景。",
+        "url": "https://kaifagongju.com/uuid.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        }
+    }
+    </script>
+    <!-- 面包屑结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://kaifagongju.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "UUID生成",
+                "item": "https://kaifagongju.com/uuid.html"
+            }
+        ]
+    }
+    </script>
+    <meta name="description" content="免费的在线UUID生成器，支持批量生成UUID v4，可自定义生成数量，一键复制。适用于分布式系统、数据库主键等场景。">
+    <meta name="keywords" content="UUID生成器,UUID在线生成,GUID生成,唯一标识符,批量生成UUID">
+    <link rel="canonical" href="https://kaifagongju.com/uuid.html">
+    
+    <!-- 页面图标 -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item > a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        
+        .nav-item > a:hover, .nav-item > a.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .nav-item > a .arrow {
+            font-size: 10px;
+            transition: transform 0.2s;
+        }
+        
+        .nav-item:hover > a .arrow {
+            transform: rotate(180deg);
+        }
+        
+        /* 下拉菜单 */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            min-width: 180px;
+            padding: 8px 0;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .nav-item:hover > .nav-dropdown {
+            display: block;
+        }
+        
+        .nav-dropdown a {
+            display: block;
+            padding: 10px 16px;
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        
+        .nav-dropdown a:hover {
+            background: #f5f7fa;
+            color: #667eea;
+        }
+        
+        .nav-dropdown a.active {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .nav-dropdown-divider {
+            height: 1px;
+            background: #e1e4e8;
+            margin: 8px 0;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 功能区 */
+        .tool-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .tool-header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .tool-header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .tool-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .tool-content {
+            padding: 25px;
+        }
+        
+        /* 操作按钮区 */
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .action-bar label {
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .action-bar input[type="number"] {
+            width: 80px;
+            padding: 8px 12px;
+            border: 2px solid #e1e4e8;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .action-bar input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #e1e4e8;
+            color: #555;
+        }
+        
+        .btn-secondary:hover {
+            background: #d1d4d8;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+        }
+        
+        /* 输出区域 */
+        .output-area {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 300px;
+            max-height: 500px;
+            overflow-y: auto;
+            font-family: "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .output-area .uuid-item {
+            color: #abb2bf;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .output-area .uuid-item .index {
+            color: #565c64;
+            min-width: 50px;
+            text-align: right;
+        }
+        
+        .output-area .uuid-item .uuid {
+            color: #98c379;
+            font-size: 15px;
+        }
+        
+        .output-area .uuid-item .copy-btn {
+            background: none;
+            border: none;
+            color: #565c64;
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.2s;
+        }
+        
+        .output-area .uuid-item:hover .copy-btn {
+            opacity: 1;
+        }
+        
+        .output-area .uuid-item .copy-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #abb2bf;
+        }
+        
+        .output-area .uuid-item .copy-btn.copied {
+            color: #98c379;
+        }
+        
+        .empty-state {
+            color: #565c64;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        /* 提示信息 */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.success {
+            background: #11998e;
+        }
+        
+        /* 说明区域 */
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            padding: 20px 25px;
+        }
+        
+        .info-section h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .info-section p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        
+        .info-section code {
+            background: #f5f7fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Consolas, monospace;
+            font-size: 13px;
+            color: #667eea;
+        }
+        
+        /* 底部 */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-wrap: wrap;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                width: 100%;
+                flex-direction: column;
+                max-height: 0;
+                overflow: hidden;
+                padding: 0;
+                gap: 0;
+                transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            }
+            
+            .nav-links.active {
+                max-height: 500px;
+                padding: 15px 0;
+            }
+            
+            .nav-item {
+                width: 100%;
+            }
+            
+            .nav-item > a {
+                width: 100%;
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .nav-item > a .arrow {
+                margin-left: auto;
+                transition: transform 0.3s ease;
+            }
+            
+            .nav-dropdown {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                background: rgba(255,255,255,0.1);
+                border-radius: 0;
+                max-height: 0;
+                overflow: hidden;
+                padding: 0;
+                transition: max-height 0.3s ease-out;
+            }
+            
+            .nav-item.expanded > a .arrow {
+                transform: rotate(180deg);
+            }
+            
+            .nav-item.expanded > .nav-dropdown {
+                max-height: 300px;
+            }
+            
+            .nav-dropdown a {
+                padding: 10px 15px 10px 30px;
+                color: rgba(255,255,255,0.85);
+                font-size: 13px;
+            }
+            
+            .nav-dropdown a:hover {
+                background: rgba(255,255,255,0.15);
+                color: white;
+            }
+            
+            .nav-dropdown-divider {
+                background: rgba(255,255,255,0.2);
+            }
+        }
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 14px 0;
+            font-size: 13px;
+        }
+        
+        .breadcrumb-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(102,126,234,0.15);
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: #764ba2;
+            text-decoration: none;
+            transform: translateX(2px);
+        }
+        
+        .breadcrumb .separator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            margin: 0 2px;
+        }
+        
+        .breadcrumb .current {
+            color: #764ba2;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon"><img src="/images/logo.png" alt="开发工具在线"></span>
+                开发工具在线
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <!-- JSON工具 -->
+                <div class="nav-item">
+                    <a href="/">JSON解析 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/">JSON解析</a>
+                        <a href="/json-format.html">JSON格式化</a>
+                        <a href="/json-compress.html">JSON压缩</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/json-to-java.html">JSON转Java</a>
+                        <a href="/json-to-python.html">JSON转Python</a>
+                    </div>
+                </div>
+                
+                <!-- 编码转换 -->
+                <div class="nav-item">
+                    <a href="/timestamp.html">编码转换 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/timestamp.html">时间戳转换</a>
+                        <a href="/url-encode.html">URL编码解码</a>
+                        <a href="/base64.html">Base64编码解码</a>
+                        <a href="/md5.html">MD5加密</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/uuid.html">UUID生成</a>
+                    </div>
+                </div>
+                
+                <!-- 设计工具 -->
+                <div class="nav-item">
+                    <a href="/color-converter.html">设计工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/color-converter.html">颜色转换</a>
+                        <a href="/tables.html">常用对照表</a>
+                    </div>
+                </div>
+                
+                <!-- 更多工具 -->
+                <div class="nav-item">
+                    <a href="/tables.html">更多工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/tables.html">常用对照表</a>
+                        <a href="/diff.html">代码对比</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主功能区 -->
+    <!-- 面包屑导航 -->
+    <div class="container">
+        <nav class="breadcrumb" aria-label="面包屑导航">
+            <span class="breadcrumb-box">
+                <a href="/">🏠 首页</a>
+                <span class="separator">›</span>
+            </span>
+            <span class="breadcrumb-box">
+                <a href="/timestamp.html">🔄 编码转换</a>
+                <span class="separator">›</span>
+            </span>
+            <span class="breadcrumb-box">
+                <span class="current">🎲 UUID生成</span>
+            </span>
+        </nav>
+    </div>
+    
+    <main class="container">
+        <article class="tool-section">
+            <header class="tool-header">
+                <h1>🎲 UUID在线生成器</h1>
+                <p>批量生成UUID v4格式唯一标识符，支持一键复制</p>
+            </header>
+            
+            <div class="tool-content">
+                <!-- 操作按钮 -->
+                <div class="action-bar">
+                    <label for="count">生成数量：</label>
+                    <input type="number" id="count" value="10" min="1" max="1000">
+                    <button class="btn btn-primary" onclick="generateUUIDs()">
+                        <span>🎲</span> 生成UUID
+                    </button>
+                    <button class="btn btn-success" onclick="copyAll()">
+                        <span>📋</span> 复制全部
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearAll()">
+                        <span>🗑️</span> 清空
+                    </button>
+                </div>
+                
+                <!-- UUID输出区域 -->
+                <div class="output-area" id="outputArea">
+                    <div class="empty-state">
+                        <div class="icon">🎲</div>
+                        <p>点击"生成UUID"按钮开始生成</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- UUID说明 -->
+        <section class="info-section">
+            <h2>什么是UUID？</h2>
+            <p><strong>UUID</strong>（Universally Unique Identifier）通用唯一识别码，是一种软件建构的标准。</p>
+            <p>UUID由32位数的16进制数字构成，以连字号分为五段，形式为 <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></p>
+            <p>示例：<code>550e8400-e29b-41d4-a716-446655440000</code></p>
+            <p>理论总数为 16<sup>32</sup> = 2<sup>128</sup> ≈ 3.4 × 10<sup>38</sup></p>
+            
+            <h2 style="margin-top: 20px;">应用场景</h2>
+            <p>• 分布式系统的唯一标识</p>
+            <p>• 数据库主键生成</p>
+            <p>• 会话ID、追踪码</p>
+            <p>• 微软GUID、Linux文件系统标识</p>
+        </section>
+    </main>
+    
+    <!-- 底部 -->
+    <footer>
+        <p>&copy; 2024 开发工具在线 - 让开发更高效</p>
+        <p style="margin-top: 10px;">
+            <a href="/">首页</a> · 
+            <a href="/about.html">关于我们</a> · 
+            <a href="/privacy.html">隐私政策</a>
+        </p>
+    </footer>
+    
+    <!-- 提示信息 -->
+    <div class="toast" id="toast"></div>
+    
+    <script>
+        // 生成UUID v4
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0;
+                var v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+        
+        // 生成多个UUID
+        function generateUUIDs() {
+            const count = parseInt(document.getElementById('count').value) || 10;
+            const outputArea = document.getElementById('outputArea');
+            let html = '';
+            
+            for (let i = 1; i <= count; i++) {
+                const uuid = generateUUID();
+                html += `<div class="uuid-item">
+                    <span class="index">${i}.</span>
+                    <span class="uuid">${uuid}</span>
+                    <button class="copy-btn" onclick="copySingle(this, '${uuid}')">复制</button>
+                </div>`;
+            }
+            
+            outputArea.innerHTML = html;
+        }
+        
+        // 复制单个UUID
+        function copySingle(btn, uuid) {
+            copyToClipboard(uuid);
+            btn.textContent = '已复制';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.textContent = '复制';
+                btn.classList.remove('copied');
+            }, 1500);
+        }
+        
+        // 复制全部UUID
+        function copyAll() {
+            const uuids = document.querySelectorAll('.uuid-item .uuid');
+            if (uuids.length === 0) {
+                showToast('请先生成UUID', 'error');
+                return;
+            }
+            
+            const allUUIDs = Array.from(uuids).map(el => el.textContent).join('\n');
+            copyToClipboard(allUUIDs);
+            showToast(`已复制 ${uuids.length} 个UUID到剪贴板`, 'success');
+        }
+        
+        // 清空
+        function clearAll() {
+            const outputArea = document.getElementById('outputArea');
+            outputArea.innerHTML = `<div class="empty-state">
+                <div class="icon">🎲</div>
+                <p>点击"生成UUID"按钮开始生成</p>
+            </div>`;
+        }
+        
+        // 复制到剪贴板
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+        }
+        
+        // 显示提示
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show' + (type === 'success' ? ' success' : '');
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 2000);
+        }
+        
+        // 移动端菜单
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+        
+        // 移动端下拉菜单展开/收起
+        document.querySelectorAll('.nav-item > a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 只在移动端生效
+                if (window.innerWidth <= 768 && this.nextElementSibling && this.nextElementSibling.classList.contains('nav-dropdown')) {
+                    e.preventDefault();
+                    const navItem = this.parentElement;
+                    
+                    // 关闭其他已展开的菜单
+                    document.querySelectorAll('.nav-item.expanded').forEach(item => {
+                        if (item !== navItem) {
+                            item.classList.remove('expanded');
+                        }
+                    });
+                    
+                    // 切换当前菜单
+                    navItem.classList.toggle('expanded');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
