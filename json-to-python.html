@@ -903,7 +903,7 @@
                 return 'None';
             }
             
-            lines.push(`${settings.className.lower()} = ${formatValue(json, 0)}`);
+            lines.push(`${settings.className.toLowerCase()} = ${formatValue(json, 0)}`);
             return lines.join('\n');
         }
         

@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO核心标签 -->
+    <title>颜色转换工具 - HEX/RGB/HSL/HSB/CMYK互转 | JSON工具箱</title>
+    <meta name="description" content="免费的在线颜色转换工具，支持HEX、RGB、RGBA、HSL、HSB、CMYK等颜色格式互转。实时预览颜色，支持颜色选择器和渐变色生成。">
+    <meta name="keywords" content="颜色转换,HEX转RGB,RGB转HSL,颜色格式转换,在线颜色工具,颜色选择器">
+    <meta name="author" content="JSON工具箱">
+    <link rel="canonical" href="https://your-domain.com/color-converter.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="颜色转换工具">
+    <meta property="og:description" content="在线颜色格式转换工具，支持HEX/RGB/HSL/HSB/CMYK互转">
+    <meta property="og:url" content="https://your-domain.com/color-converter.html">
+    <meta property="og:site_name" content="JSON工具箱">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="颜色转换工具">
+    <meta name="twitter:description" content="在线颜色格式转换工具">
+    
+    <!-- 页面图标 -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "颜色转换工具",
+        "description": "在线颜色格式转换工具，支持HEX/RGB/HSL/HSB/CMYK互转",
+        "url": "https://your-domain.com/color-converter.html"
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 广告位 */
+        .ad-container {
+            background: #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px auto;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        /* 功能区 */
+        .tool-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .tool-header {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .tool-header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .tool-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .tool-content {
+            padding: 30px;
+        }
+        
+        /* 颜色预览区 */
+        .color-preview-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .color-preview-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .color-preview-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .color-preview-large {
+            width: 100%;
+            height: 150px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+        
+        .color-preview-small {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .color-swatch {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-swatch.active {
+            outline: 3px solid #333;
+            outline-offset: 2px;
+        }
+        
+        /* 颜色输入区 */
+        .color-inputs {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .color-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .color-input-label {
+            min-width: 80px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .color-input-field {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .color-input-field input[type="text"] {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: monospace;
+            transition: border-color 0.3s;
+        }
+        
+        .color-input-field input[type="text"]:focus {
+            outline: none;
+            border-color: #ee0979;
+        }
+        
+        .color-input-field input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        
+        .color-input-field input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+        
+        .color-input-field .range-value {
+            min-width: 45px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .color-input-field .copy-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #e1e4e8;
+            color: #555;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .color-input-field .copy-btn:hover {
+            background: #d1d5db;
+        }
+        
+        /* 颜色选择器 */
+        .color-picker-wrapper {
+            margin-bottom: 25px;
+        }
+        
+        .color-picker-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .color-picker-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        #colorPicker {
+            width: 80px;
+            height: 50px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        #colorPicker::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        
+        #colorPicker::-webkit-color-swatch {
+            border: none;
+            border-radius: 8px;
+        }
+        
+        /* 渐变色生成器 */
+        .gradient-generator {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e1e4e8;
+        }
+        
+        .gradient-preview {
+            height: 100px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: background 0.3s;
+        }
+        
+        .gradient-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .gradient-type-select {
+            padding: 10px 15px;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .gradient-angle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .gradient-angle input[type="range"] {
+            width: 120px;
+        }
+        
+        .gradient-stops {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .gradient-stop {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .gradient-stop input[type="color"] {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .gradient-stop input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        
+        .gradient-stop input[type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 6px;
+        }
+        
+        .gradient-stop input[type="text"] {
+            width: 70px;
+            padding: 6px 8px;
+            border: 1px solid #e1e4e8;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+        
+        .gradient-stop .remove-stop {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .gradient-stop .remove-stop:hover {
+            color: #ff4757;
+        }
+        
+        .add-stop-btn {
+            padding: 8px 16px;
+            border: 2px dashed #e1e4e8;
+            border-radius: 8px;
+            background: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        
+        .add-stop-btn:hover {
+            border-color: #ee0979;
+            color: #ee0979;
+        }
+        
+        /* 预设颜色 */
+        .preset-colors {
+            margin-top: 25px;
+        }
+        
+        .preset-label {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #555;
+        }
+        
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 8px;
+        }
+        
+        .preset-color {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .preset-color:hover {
+            transform: scale(1.15);
+        }
+        
+        /* 复制成功提示 */
+        .copy-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .copy-toast.show {
+            opacity: 1;
+        }
+        
+        /* 按钮 */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(238, 9, 121, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #e1e4e8;
+            color: #555;
+        }
+        
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                padding-top: 15px;
+            }
+            
+            .nav-links.show {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .gradient-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon">{ }</span>
+                JSON工具箱
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <a href="/">JSON解析</a>
+                <a href="/json-format.html">JSON格式化</a>
+                <a href="/json-compress.html">JSON压缩</a>
+                <a href="/json-to-java.html">JSON转Java</a>
+                <a href="/json-to-python.html">JSON转Python</a>
+                <a href="/timestamp.html">时间戳</a>
+                <a href="/url-encode.html">URL编码</a>
+                <a href="/base64.html">Base64</a>
+                <a href="/color-converter.html" class="active">颜色转换</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- 广告位 -->
+        <div class="ad-container ad-top">
+            广告位 728x90
+        </div>
+        
+        <!-- 主要功能区 -->
+        <div class="tool-section">
+            <div class="tool-header">
+                <h1>🎨 颜色转换工具</h1>
+                <p>支持HEX、RGB、RGBA、HSL、HSB、CMYK格式互转</p>
+            </div>
+            
+            <div class="tool-content">
+                <!-- 颜色选择器 -->
+                <div class="color-picker-wrapper">
+                    <label class="color-picker-label">🎯 颜色选择器</label>
+                    <div class="color-picker-row">
+                        <input type="color" id="colorPicker" value="#3498db" onchange="updateFromPicker()">
+                        <input type="text" id="hexInput" value="#3498db" placeholder="#3498db" oninput="updateFromHex()" style="font-size: 16px; font-weight: bold; text-transform: uppercase;">
+                        <button class="btn btn-primary" onclick="updateFromHex()">转换</button>
+                    </div>
+                </div>
+                
+                <!-- 颜色预览 -->
+                <div class="color-preview-section">
+                    <div class="color-preview-card">
+                        <div class="color-preview-large" id="colorPreview"></div>
+                        <p style="color: #666; font-size: 14px;">当前颜色预览</p>
+                    </div>
+                    <div class="color-preview-card">
+                        <p style="margin-bottom: 10px; color: #555; font-weight: 600;">调色板</p>
+                        <div class="color-preview-small" id="colorPalette"></div>
+                    </div>
+                </div>
+                
+                <!-- 颜色输入 -->
+                <div class="color-inputs">
+                    <!-- HEX -->
+                    <div class="color-input-row">
+                        <span class="color-input-label">HEX</span>
+                        <div class="color-input-field">
+                            <input type="text" id="hexValue" readonly onclick="copyValue(this)">
+                            <button class="copy-btn" onclick="copyValue(document.getElementById('hexValue'))">复制</button>
+                        </div>
+                    </div>
+                    
+                    <!-- RGB -->
+                    <div class="color-input-row">
+                        <span class="color-input-label">RGB</span>
+                        <div class="color-input-field">
+                            <input type="text" id="rgbValue" readonly onclick="copyValue(this)">
+                            <button class="copy-btn" onclick="copyValue(document.getElementById('rgbValue'))">复制</button>
+                        </div>
+                    </div>
+                    
+                    <!-- RGBA -->
+                    <div class="color-input-row">
+                        <span class="color-input-label">RGBA</span>
+                        <div class="color-input-field">
+                            <input type="text" id="rgbaValue" readonly onclick="copyValue(this)">
+                            <button class="copy-btn" onclick="copyValue(document.getElementById('rgbaValue'))">复制</button>
+                        </div>
+                    </div>
+                    
+                    <!-- HSL -->
+                    <div class="color-input-row">
+                        <span class="color-input-label">HSL</span>
+                        <div class="color-input-field">
+                            <input type="text" id="hslValue" readonly onclick="copyValue(this)">
+                            <button class="copy-btn" onclick="copyValue(document.getElementById('hslValue'))">复制</button>
+                        </div>
+                    </div>
+                    
+                    <!-- HSB -->
+                    <div class="color-input-row">
+                        <span class="color-input-label">HSB</span>
+                        <div class="color-input-field">
+                            <input type="text" id="hsbValue" readonly onclick="copyValue(this)">
+                            <button class="copy-btn" onclick="copyValue(document.getElementById('hsbValue'))">复制</button>
+                        </div>
+                    </div>
+                    
+                    <!-- CMYK -->
+                    <div class="color-input-row">
+                        <span class="color-input-label">CMYK</span>
+                        <div class="color-input-field">
+                            <input type="text" id="cmykValue" readonly onclick="copyValue(this)">
+                            <button class="copy-btn" onclick="copyValue(document.getElementById('cmykValue'))">复制</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 预设颜色 -->
+                <div class="preset-colors">
+                    <p class="preset-label">🎨 预设颜色</p>
+                    <div class="preset-grid" id="presetGrid"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 渐变色生成器 -->
+        <div class="tool-section">
+            <div class="tool-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <h1>🌈 渐变色生成器</h1>
+                <p>生成CSS渐变色代码</p>
+            </div>
+            
+            <div class="tool-content">
+                <div class="gradient-preview" id="gradientPreview"></div>
+                
+                <div class="gradient-controls">
+                    <select class="gradient-type-select" id="gradientType" onchange="updateGradient()">
+                        <option value="linear">线性渐变 (Linear)</option>
+                        <option value="radial">径向渐变 (Radial)</option>
+                        <option value="conic">锥形渐变 (Conic)</option>
+                    </select>
+                    
+                    <div class="gradient-angle" id="angleControl">
+                        <span>角度:</span>
+                        <input type="range" id="gradientAngle" min="0" max="360" value="90" oninput="updateGradient()">
+                        <span class="range-value" id="angleValue">90°</span>
+                    </div>
+                </div>
+                
+                <div class="gradient-stops" id="gradientStops">
+                    <div class="gradient-stop">
+                        <input type="color" value="#ee0979" onchange="updateGradient()">
+                        <input type="text" value="0%" class="stop-position" onchange="updateGradient()">
+                        <button class="remove-stop" onclick="removeStop(this)">×</button>
+                    </div>
+                    <div class="gradient-stop">
+                        <input type="color" value="#ff6a00" onchange="updateGradient()">
+                        <input type="text" value="100%" class="stop-position" onchange="updateGradient()">
+                        <button class="remove-stop" onclick="removeStop(this)">×</button>
+                    </div>
+                </div>
+                
+                <button class="add-stop-btn" onclick="addGradientStop()">+ 添加色标</button>
+                
+                <div style="margin-top: 20px;">
+                    <label style="font-weight: 600; color: #555; display: block; margin-bottom: 10px;">CSS代码</label>
+                    <div class="color-input-field">
+                        <input type="text" id="gradientCss" readonly onclick="copyValue(this)" style="background: #f8f9fa;">
+                        <button class="copy-btn" onclick="copyValue(document.getElementById('gradientCss'))">复制</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>&copy; 2024 JSON工具箱 - 免费在线JSON工具 | <a href="/sitemap.xml">网站地图</a></p>
+        </div>
+    </div>
+    
+    <!-- 复制成功提示 -->
+    <div class="copy-toast" id="copyToast">✓ 已复制到剪贴板</div>
+    
+    <script>
+        // 当前颜色状态
+        let currentColor = { r: 52, g: 152, b: 219 };
+        
+        // 预设颜色
+        const presetColors = [
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+            '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9',
+            '#F8B500', '#00C851', '#FF8800', '#CC0000', '#354458',
+            '#1A2980', '#26D0CE', '#FF416C', '#8E2DE2', '#4A00E0',
+            '#667eea', '#764ba2', '#f093fb', '#f5576c', '#fa709a',
+            '#fee140', '#fa709a', '#306998', '#ffd43b', '#000000',
+            '#FFFFFF', '#808080', '#C0C0C0', '#F5F5DC', '#FFE4C4'
+        ];
+        
+        // 初始化
+        function init() {
+            // 生成预设颜色
+            const presetGrid = document.getElementById('presetGrid');
+            presetColors.forEach(color => {
+                const div = document.createElement('div');
+                div.className = 'preset-color';
+                div.style.backgroundColor = color;
+                div.title = color;
+                div.onclick = () => selectColor(color);
+                presetGrid.appendChild(div);
+            });
+            
+            // 生成调色板
+            generatePalette();
+            
+            // 更新颜色
+            updateColor();
+            updateGradient();
+        }
+        
+        // 从颜色选择器更新
+        function updateFromPicker() {
+            const hex = document.getElementById('colorPicker').value;
+            document.getElementById('hexInput').value = hex.toUpperCase();
+            hexToRgb(hex);
+            updateColor();
+        }
+        
+        // 从HEX输入更新
+        function updateFromHex() {
+            let hex = document.getElementById('hexInput').value.trim();
+            if (!hex.startsWith('#')) hex = '#' + hex;
+            if (!/^#[0-9A-Fa-f]{6}$/.test(hex)) return;
+            
+            document.getElementById('colorPicker').value = hex;
+            hexToRgb(hex);
+            updateColor();
+        }
+        
+        // HEX转RGB
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '');
+            currentColor.r = parseInt(hex.substr(0, 2), 16);
+            currentColor.g = parseInt(hex.substr(2, 2), 16);
+            currentColor.b = parseInt(hex.substr(4, 2), 16);
+        }
+        
+        // RGB转HEX
+        function rgbToHex(r, g, b) {
+            return '#' + [r, g, b].map(x => {
+                const hex = Math.round(x).toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            }).join('').toUpperCase();
+        }
+        
+        // RGB转HSL
+        function rgbToHsl(r, g, b) {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, l = (max + min) / 2;
+            
+            if (max === min) {
+                h = s = 0;
+            } else {
+                const d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                switch (max) {
+                    case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+                    case g: h = ((b - r) / d + 2) / 6; break;
+                    case b: h = ((r - g) / d + 4) / 6; break;
+                }
+            }
+            
+            return {
+                h: Math.round(h * 360),
+                s: Math.round(s * 100),
+                l: Math.round(l * 100)
+            };
+        }
+        
+        // RGB转HSB
+        function rgbToHsb(r, g, b) {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, v = max;
+            const d = max - min;
+            s = max === 0 ? 0 : d / max;
+            
+            if (max === min) {
+                h = 0;
+            } else {
+                switch (max) {
+                    case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+                    case g: h = ((b - r) / d + 2) / 6; break;
+                    case b: h = ((r - g) / d + 4) / 6; break;
+                }
+            }
+            
+            return {
+                h: Math.round(h * 360),
+                s: Math.round(s * 100),
+                b: Math.round(v * 100)
+            };
+        }
+        
+        // RGB转CMYK
+        function rgbToCmyk(r, g, b) {
+            if (r === 0 && g === 0 && b === 0) {
+                return { c: 0, m: 0, y: 0, k: 100 };
+            }
+            const c = 1 - (r / 255);
+            const m = 1 - (g / 255);
+            const y = 1 - (b / 255);
+            const k = Math.min(c, m, y);
+            
+            return {
+                c: Math.round(((c - k) / (1 - k)) * 100),
+                m: Math.round(((m - k) / (1 - k)) * 100),
+                y: Math.round(((y - k) / (1 - k)) * 100),
+                k: Math.round(k * 100)
+            };
+        }
+        
+        // 更新所有颜色值
+        function updateColor() {
+            const { r, g, b } = currentColor;
+            const hex = rgbToHex(r, g, b);
+            const hsl = rgbToHsl(r, g, b);
+            const hsb = rgbToHsb(r, g, b);
+            const cmyk = rgbToCmyk(r, g, b);
+            
+            // 更新输入框
+            document.getElementById('hexValue').value = hex;
+            document.getElementById('rgbValue').value = `rgb(${r}, ${g}, ${b})`;
+            document.getElementById('rgbaValue').value = `rgba(${r}, ${g}, ${b}, 1)`;
+            document.getElementById('hslValue').value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+            document.getElementById('hsbValue').value = `hsb(${hsb.h}, ${hsb.s}%, ${hsb.b}%)`;
+            document.getElementById('cmykValue').value = `cmyk(${cmyk.c}%, ${cmyk.m}%, ${cmyk.y}%, ${cmyk.k}%)`;
+            
+            // 更新预览
+            document.getElementById('colorPreview').style.backgroundColor = hex;
+            document.getElementById('colorPicker').value = hex;
+            document.getElementById('hexInput').value = hex.toUpperCase();
+            
+            // 更新调色板
+            generatePalette();
+        }
+        
+        // 生成调色板
+        function generatePalette() {
+            const palette = document.getElementById('colorPalette');
+            palette.innerHTML = '';
+            
+            const variations = [
+                { r: currentColor.r, g: currentColor.g, b: currentColor.b }, // 原色
+                adjustBrightness(currentColor, 30),  // 亮
+                adjustBrightness(currentColor, -30), // 暗
+                adjustBrightness(currentColor, 60),  // 更亮
+                adjustBrightness(currentColor, -60)  // 更暗
+            ];
+            
+            variations.forEach(color => {
+                const div = document.createElement('div');
+                div.className = 'color-swatch';
+                div.style.backgroundColor = rgbToHex(color.r, color.g, color.b);
+                div.onclick = () => selectColor(rgbToHex(color.r, color.g, color.b));
+                palette.appendChild(div);
+            });
+        }
+        
+        // 调整亮度
+        function adjustBrightness(color, amount) {
+            return {
+                r: Math.max(0, Math.min(255, color.r + amount)),
+                g: Math.max(0, Math.min(255, color.g + amount)),
+                b: Math.max(0, Math.min(255, color.b + amount))
+            };
+        }
+        
+        // 选择颜色
+        function selectColor(hex) {
+            document.getElementById('hexInput').value = hex;
+            updateFromHex();
+        }
+        
+        // 复制值
+        function copyValue(input) {
+            navigator.clipboard.writeText(input.value).then(() => {
+                showToast('✓ 已复制到剪贴板');
+            }).catch(() => {
+                input.select();
+                document.execCommand('copy');
+                showToast('✓ 已复制到剪贴板');
+            });
+        }
+        
+        // 显示提示
+        function showToast(message) {
+            const toast = document.getElementById('copyToast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+        
+        // 移动端菜单
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('show');
+        }
+        
+        // 更新渐变
+        function updateGradient() {
+            const type = document.getElementById('gradientType').value;
+            const angle = document.getElementById('gradientAngle').value;
+            const stops = document.querySelectorAll('.gradient-stop');
+            
+            let gradientValue = '';
+            const stopList = Array.from(stops).map(stop => {
+                const color = stop.querySelector('input[type="color"]').value;
+                const position = stop.querySelector('.stop-position').value;
+                return `${color} ${position}`;
+            });
+            
+            switch (type) {
+                case 'linear':
+                    gradientValue = `linear-gradient(${angle}deg, ${stopList.join(', ')})`;
+                    document.getElementById('angleControl').style.display = 'flex';
+                    break;
+                case 'radial':
+                    gradientValue = `radial-gradient(circle, ${stopList.join(', ')})`;
+                    document.getElementById('angleControl').style.display = 'none';
+                    break;
+                case 'conic':
+                    gradientValue = `conic-gradient(from ${angle}deg, ${stopList.join(', ')})`;
+                    document.getElementById('angleControl').style.display = 'flex';
+                    document.querySelector('#angleControl span:first-child').textContent = '起始角度:';
+                    break;
+            }
+            
+            document.getElementById('gradientPreview').style.background = gradientValue;
+            document.getElementById('gradientCss').value = gradientValue;
+            document.getElementById('angleValue').textContent = angle + '°';
+        }
+        
+        // 添加渐变色标
+        function addGradientStop() {
+            const stops = document.getElementById('gradientStops');
+            const stopCount = stops.querySelectorAll('.gradient-stop').length;
+            
+            if (stopCount >= 10) {
+                showToast('最多添加10个色标');
+                return;
+            }
+            
+            const div = document.createElement('div');
+            div.className = 'gradient-stop';
+            div.innerHTML = `
+                <input type="color" value="#ffffff" onchange="updateGradient()">
+                <input type="text" value="${Math.round((stopCount / (stopCount + 1)) * 100)}%" class="stop-position" onchange="updateGradient()">
+                <button class="remove-stop" onclick="removeStop(this)">×</button>
+            `;
+            stops.appendChild(div);
+            updateGradient();
+        }
+        
+        // 删除色标
+        function removeStop(btn) {
+            const stops = document.querySelectorAll('.gradient-stop');
+            if (stops.length <= 2) {
+                showToast('至少保留2个色标');
+                return;
+            }
+            btn.parentElement.remove();
+            updateGradient();
+        }
+        
+        // 页面加载完成
+        document.addEventListener('DOMContentLoaded', init);
+        
+        var AD_CONFIG = { enableAds: false };
+    </script>
+</body>
+</html>
