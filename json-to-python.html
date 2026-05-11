@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO核心标签 -->
+    <title>JSON转Python工具 - 在线JSON转Python字典/类 | JSON工具箱</title>
+    <meta name="description" content="免费的JSON转Python工具，一键将JSON对象转换为Python字典或类代码。支持嵌套对象、类型注解、Pydantic模型。无需注册，数据本地处理安全无忧。">
+    <meta name="keywords" content="JSON转Python,JSON转字典,JSON转类,Python代码生成器,Pydantic模型,在线JSON工具">
+    <meta name="author" content="JSON工具箱">
+    <link rel="canonical" href="https://your-domain.com/json-to-python.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="JSON转Python工具">
+    <meta property="og:description" content="在线JSON转Python字典/类代码生成器">
+    <meta property="og:url" content="https://your-domain.com/json-to-python.html">
+    <meta property="og:site_name" content="JSON工具箱">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JSON转Python工具">
+    <meta name="twitter:description" content="在线JSON转Python字典/类代码生成器">
+    
+    <!-- 页面图标 -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "JSON转Python工具",
+        "description": "在线JSON转Python字典/类代码生成器",
+        "url": "https://your-domain.com/json-to-python.html"
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 广告位 */
+        .ad-container {
+            background: #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px auto;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        /* 功能区 */
+        .tool-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .tool-header {
+            background: linear-gradient(135deg, #306998 0%, #ffd43b 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .tool-header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .tool-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .tool-content {
+            padding: 25px;
+        }
+        
+        /* 选项卡 */
+        .tab-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            border: 2px solid #e1e4e8;
+            border-radius: 25px;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #555;
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, #306998 0%, #ffd43b 100%);
+            border-color: #306998;
+            color: white;
+        }
+        
+        .tab-btn:hover:not(.active) {
+            border-color: #306998;
+            color: #306998;
+        }
+        
+        /* 编辑器区域 */
+        .editor-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .editor-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .editor-box {
+            position: relative;
+        }
+        
+        .editor-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .editor-label span {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .editor-label .load-example {
+            font-size: 12px;
+            color: #306998;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .editor-label .load-example:hover {
+            color: #1e3a5f;
+            text-decoration: underline;
+        }
+        
+        .editor-box textarea {
+            width: 100%;
+            height: 450px;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            resize: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            background: #fafafa;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #306998;
+            background: #fff;
+        }
+        
+        textarea.error {
+            border-color: #ff4757;
+            background: #fff5f5;
+        }
+        
+        textarea.success {
+            border-color: #2ed573;
+        }
+        
+        /* 错误提示 */
+        .error-msg {
+            color: #ff4757;
+            font-size: 13px;
+            margin-top: 8px;
+            padding: 10px;
+            background: #fff5f5;
+            border-radius: 6px;
+            display: none;
+        }
+        
+        .error-msg.show {
+            display: block;
+        }
+        
+        /* 按钮组 */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #306998 0%, #ffd43b 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(48, 105, 152, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #e1e4e8;
+            color: #555;
+        }
+        
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+        }
+        
+        /* 设置选项 */
+        .settings-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .setting-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .setting-item label {
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .setting-item select {
+            padding: 8px 12px;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .setting-item input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 150px;
+        }
+        
+        .setting-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        /* 生成的代码 */
+        .generated-code {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .generated-code .keyword {
+            color: #ff79c6;
+        }
+        
+        .generated-code .type {
+            color: #8be9fd;
+        }
+        
+        .generated-code .string {
+            color: #f1fa8c;
+        }
+        
+        .generated-code .number {
+            color: #bd93f9;
+        }
+        
+        .generated-code .comment {
+            color: #6272a4;
+        }
+        
+        /* 示例弹窗 */
+        .example-hint {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .example-hint.show {
+            display: flex;
+        }
+        
+        .example-modal {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .example-modal h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .example-modal p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .example-json-box {
+            background: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow: auto;
+            margin-bottom: 15px;
+        }
+        
+        /* 复制成功提示 */
+        .copy-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .copy-toast.show {
+            opacity: 1;
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                padding-top: 15px;
+            }
+            
+            .nav-links.show {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .settings-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon">{ }</span>
+                JSON工具箱
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <a href="/">JSON解析</a>
+                <a href="/json-format.html">JSON格式化</a>
+                <a href="/json-compress.html">JSON压缩</a>
+                <a href="/json-to-java.html">JSON转Java</a>
+                <a href="/json-to-python.html" class="active">JSON转Python</a>
+                <a href="/timestamp.html">时间戳</a>
+                <a href="/url-encode.html">URL编码</a>
+                <a href="/base64.html">Base64</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- 广告位 -->
+        <div class="ad-container ad-top">
+            广告位 728x90
+        </div>
+        
+        <!-- 主要功能区 -->
+        <div class="tool-section">
+            <div class="tool-header">
+                <h1>🐍 JSON转Python</h1>
+                <p>输入JSON，自动生成Python字典或类代码，支持类型注解</p>
+            </div>
+            
+            <div class="tool-content">
+                <!-- 选项卡 -->
+                <div class="tab-selector">
+                    <button class="tab-btn active" onclick="switchTab('dict')" id="tab-dict">
+                        📋 字典 (Dict)
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('class')" id="tab-class">
+                        🏗️ 类 (Class)
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('pydantic')" id="tab-pydantic">
+                        🔷 Pydantic模型
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('dataclass')" id="tab-dataclass">
+                        📦 Dataclass
+                    </button>
+                </div>
+                
+                <!-- 设置选项 -->
+                <div class="settings-row">
+                    <div class="setting-item">
+                        <label>类名:</label>
+                        <input type="text" id="className" value="User" placeholder="类名">
+                    </div>
+                    <div class="setting-item">
+                        <label>字段命名:</label>
+                        <select id="fieldNaming">
+                            <option value="snake_case">snake_case (推荐)</option>
+                            <option value="camelCase">camelCase</option>
+                            <option value="original">保持原样</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <input type="checkbox" id="useTypeHints" checked>
+                        <label for="useTypeHints">类型注解</label>
+                    </div>
+                    <div class="setting-item">
+                        <input type="checkbox" id="useOptional" checked>
+                        <label for="useOptional">Optional类型</label>
+                    </div>
+                </div>
+                
+                <!-- 编辑器 -->
+                <div class="editor-wrapper">
+                    <div class="editor-box">
+                        <div class="editor-label">
+                            <span>JSON 输入</span>
+                            <a class="load-example" onclick="showExampleHint()">📝 示例</a>
+                        </div>
+                        <textarea id="jsonInput" placeholder='{
+  "id": 1,
+  "name": "张三",
+  "email": "zhangsan@example.com",
+  "age": 28,
+  "isActive": true,
+  "balance": 9999.99,
+  "tags": ["Python", "JavaScript", "Go"],
+  "address": {
+    "city": "北京",
+    "district": "朝阳区",
+    "zipCode": "100000"
+  },
+  "phoneNumbers": [
+    {"type": "手机", "number": "13800138000"},
+    {"type": "办公", "number": "010-12345678"}
+  ],
+  "createdAt": "2024-01-15T10:30:00Z"
+}'></textarea>
+                    </div>
+                    <div class="editor-box">
+                        <div class="editor-label">
+                            <span>Python 代码</span>
+                            <span id="codeStats">0 行</span>
+                        </div>
+                        <textarea id="pythonOutput" readonly placeholder="生成的Python代码将显示在这里..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- 错误提示 -->
+                <div class="error-msg" id="errorMsg"></div>
+                
+                <!-- 按钮组 -->
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="generatePython()">
+                        <span>🔄</span> 生成Python代码
+                    </button>
+                    <button class="btn btn-success" onclick="copyCode()">
+                        <span>📋</span> 复制代码
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearAll()">
+                        <span>🗑️</span> 清空
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 使用说明 -->
+        <div class="tool-section">
+            <div class="tool-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <h1>📖 使用说明</h1>
+            </div>
+            <div class="tool-content">
+                <div style="color: #555; line-height: 2;">
+                    <p><strong>输出格式选择：</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li><strong>字典 (Dict)</strong> - 生成Python字典字面量，适合直接使用</li>
+                        <li><strong>类 (Class)</strong> - 生成普通Python类，支持__init__方法</li>
+                        <li><strong>Pydantic模型</strong> - 生成Pydantic BaseModel，支持数据验证</li>
+                        <li><strong>Dataclass</strong> - 生成@dataclass装饰器类</li>
+                    </ul>
+                    
+                    <p><strong>Python类型映射规则：</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li><code>str</code> - 字符串类型</li>
+                        <li><code>int</code> - 整数类型</li>
+                        <li><code>float</code> - 浮点数类型</li>
+                        <li><code>bool</code> - 布尔类型</li>
+                        <li><code>list[T]</code> - 列表类型</li>
+                        <li><code>dict[str, T]</code> - 字典类型</li>
+                        <li><code>Optional[T]</code> - 可空类型</li>
+                        <li><code>datetime</code> - ISO日期格式</li>
+                    </ul>
+                    
+                    <p><strong>命名转换示例：</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li><code>userName</code> → <code>user_name</code> (snake_case)</li>
+                        <li><code>user_name</code> → <code>userName</code> (camelCase)</li>
+                        <li><code>createdAt</code> → <code>created_at</code> (snake_case)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>&copy; 2024 JSON工具箱 - 免费在线JSON工具 | <a href="/sitemap.xml">网站地图</a></p>
+        </div>
+    </div>
+    
+    <!-- 示例弹窗 -->
+    <div class="example-hint" id="exampleHint">
+        <div class="example-modal">
+            <h3>📝 JSON 示例</h3>
+            <p>以下是一个标准的JSON对象示例，点击"加载示例"即可填充到输入框中。</p>
+            <div class="example-json-box" id="exampleJsonBox"></div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="loadExample()">
+                    <span>✓</span> 加载示例
+                </button>
+                <button class="btn btn-secondary" onclick="closeExampleHint()">
+                    <span>✕</span> 关闭
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 复制成功提示 -->
+    <div class="copy-toast" id="copyToast">✓ 代码已复制到剪贴板</div>
+    
+    <script>
+        // 当前选中的tab
+        let currentTab = 'dict';
+        
+        // 示例JSON
+        const SAMPLE_JSON = {
+            "id": 1,
+            "userName": "张三",
+            "email": "zhangsan@example.com",
+            "age": 28,
+            "isActive": true,
+            "balance": 9999.99,
+            "tags": ["Python", "JavaScript", "Go"],
+            "address": {
+                "city": "北京",
+                "district": "朝阳区",
+                "zipCode": "100000"
+            },
+            "phoneNumbers": [
+                {"type": "手机", "number": "13800138000"},
+                {"type": "办公", "number": "010-12345678"}
+            ],
+            "createdAt": "2024-01-15T10:30:00Z",
+            "updatedAt": null
+        };
+        
+        // 显示示例弹窗
+        function showExampleHint() {
+            const hint = document.getElementById('exampleHint');
+            const box = document.getElementById('exampleJsonBox');
+            box.textContent = JSON.stringify(SAMPLE_JSON, null, 2);
+            hint.classList.add('show');
+        }
+        
+        // 关闭弹窗
+        function closeExampleHint() {
+            document.getElementById('exampleHint').classList.remove('show');
+        }
+        
+        // 加载示例
+        function loadExample() {
+            document.getElementById('jsonInput').value = JSON.stringify(SAMPLE_JSON, null, 2);
+            closeExampleHint();
+            generatePython();
+        }
+        
+        // 点击遮罩关闭
+        document.getElementById('exampleHint').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeExampleHint();
+            }
+        });
+        
+        // 移动端菜单切换
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('show');
+        }
+        
+        // 切换Tab
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // 更新按钮样式
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            
+            // 重新生成
+            generatePython();
+        }
+        
+        // 命名转换函数
+        function toSnakeCase(str) {
+            return str.replace(/[A-Z]/g, c => '_' + c.toLowerCase())
+                      .replace(/^_/, '')
+                      .toLowerCase();
+        }
+        
+        function toCamelCase(str) {
+            return str.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+        }
+        
+        function convertFieldName(name, style) {
+            const cleanName = name.replace(/[^a-zA-Z0-9_]/g, '');
+            switch (style) {
+                case 'snake_case':
+                    return toSnakeCase(cleanName);
+                case 'camelCase':
+                    return toCamelCase(cleanName);
+                case 'original':
+                default:
+                    return cleanName;
+            }
+        }
+        
+        // 获取Python类型
+        function getPythonType(key, value, settings) {
+            if (value === null) {
+                return settings.useOptional ? 'Optional[Any]' : 'Any';
+            }
+            
+            if (Array.isArray(value)) {
+                if (value.length === 0) return settings.useTypeHints ? 'list[Any]' : 'list';
+                const elemType = getPythonType(key, value[0], settings);
+                if (elemType.startsWith('Optional[')) {
+                    return settings.useTypeHints ? `list[${elemType}]` : 'list';
+                }
+                return settings.useTypeHints ? `list[${elemType}]` : 'list';
+            }
+            
+            const type = typeof value;
+            
+            if (type === 'string') {
+                // 日期检测
+                if (/^\d{4}-\d{2}-\d{2}T/.test(value) || /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(value)) {
+                    return settings.useTypeHints ? 'datetime' : 'datetime';
+                }
+                return 'str';
+            }
+            
+            if (type === 'number') {
+                if (Number.isInteger(value)) {
+                    return 'int';
+                }
+                return 'float';
+            }
+            
+            if (type === 'boolean') {
+                return 'bool';
+            }
+            
+            if (type === 'object') {
+                return 'dict';
+            }
+            
+            return 'Any';
+        }
+        
+        // 生成字典格式
+        function generateDict(json, settings) {
+            const lines = [];
+            lines.push('# Generated from JSON');
+            lines.push('');
+            
+            function formatValue(value, indent) {
+                if (value === null) return 'None';
+                if (typeof value === 'string') return `"${value.replace(/"/g, '\\"')}"`;
+                if (typeof value === 'number') return String(value);
+                if (typeof value === 'boolean') return value ? 'True' : 'False';
+                if (Array.isArray(value)) {
+                    if (value.length === 0) return '[]';
+                    const items = value.map(v => formatValue(v, indent + 1));
+                    return '[' + '\n' + '    '.repeat(indent + 1) + items.join(',\n' + '    '.repeat(indent + 1)) + '\n' + '    '.repeat(indent) + ']';
+                }
+                if (typeof value === 'object') {
+                    const items = Object.entries(value).map(([k, v]) => {
+                        const key = convertFieldName(k, settings.fieldNaming);
+                        return `"${key}": ${formatValue(v, indent + 1)}`;
+                    });
+                    return '{' + '\n' + '    '.repeat(indent + 1) + items.join(',\n' + '    '.repeat(indent + 1)) + '\n' + '    '.repeat(indent) + '}';
+                }
+                return 'None';
+            }
+            
+            lines.push(`${settings.className.lower()} = ${formatValue(json, 0)}`);
+            return lines.join('\n');
+        }
+        
+        // 生成普通类
+        function generateClass(json, settings) {
+            const lines = [];
+            const className = settings.className;
+            
+            lines.push('# Generated from JSON');
+            lines.push('');
+            
+            if (settings.useTypeHints) {
+                lines.push('from typing import List, Dict, Optional, Any');
+                lines.push('from datetime import datetime');
+                lines.push('');
+            }
+            
+            lines.push(`class ${className}:`);
+            lines.push(`    """${className}类 - 自动生成"""`);
+            lines.push('');
+            
+            // __init__方法
+            const initParams = [];
+            const initBody = [];
+            
+            Object.entries(json).forEach(([key, value]) => {
+                const fieldName = convertFieldName(key, settings.fieldNaming);
+                const pyType = getPythonType(key, value, settings);
+                
+                if (settings.useTypeHints) {
+                    initParams.push(`${fieldName}: ${pyType}`);
+                } else {
+                    initParams.push(fieldName);
+                }
+                initBody.push(`        self.${fieldName} = ${fieldName}`);
+            });
+            
+            lines.push(`    def __init__(self, ${initParams.join(', ')}):`);
+            if (settings.useTypeHints) {
+                lines.push(`        """初始化${className}对象"""`);
+            }
+            initBody.forEach(line => lines.push(line));
+            lines.push('');
+            
+            // __repr__方法
+            lines.push('    def __repr__(self):');
+            const reprFields = Object.keys(json).map(key => {
+                const fieldName = convertFieldName(key, settings.fieldNaming);
+                return `${fieldName}={self.${fieldName}}`;
+            }).join(', ');
+            lines.push(`        return f"${className}(${reprFields})"`);
+            lines.push('');
+            
+            // to_dict方法
+            lines.push('    def to_dict(self):');
+            lines.push('        """转换为字典"""');
+            lines.push('        return {');
+            Object.keys(json).forEach(key => {
+                const fieldName = convertFieldName(key, settings.fieldNaming);
+                lines.push(`            "${fieldName}": self.${fieldName},`);
+            });
+            lines.push('        }');
+            
+            return lines.join('\n');
+        }
+        
+        // 生成Pydantic模型
+        function generatePydantic(json, settings) {
+            const lines = [];
+            const className = settings.className;
+            
+            lines.push('# Generated from JSON');
+            lines.push('');
+            lines.push('from pydantic import BaseModel, Field');
+            lines.push('from typing import List, Optional, Any');
+            lines.push('from datetime import datetime');
+            lines.push('');
+            
+            lines.push(`class ${className}(BaseModel):`);
+            lines.push(`    """${className} Pydantic模型 - 自动生成"""`);
+            lines.push('');
+            
+            Object.entries(json).forEach(([key, value]) => {
+                const fieldName = convertFieldName(key, settings.fieldNaming);
+                const pyType = getPythonType(key, value, settings);
+                const defaultValue = value === null ? ' = None' : '';
+                
+                if (settings.useTypeHints) {
+                    lines.push(`    ${fieldName}: ${pyType}${defaultValue}  # ${key}`);
+                } else {
+                    lines.push(`    ${fieldName}${defaultValue}  # ${key}`);
+                }
+            });
+            
+            lines.push('');
+            lines.push('    class Config:');
+            lines.push('        """Pydantic配置"""');
+            lines.push('        populate_by_name = True');
+            lines.push('        str_strip_whitespace = True');
+            
+            return lines.join('\n');
+        }
+        
+        // 生成Dataclass
+        function generateDataclass(json, settings) {
+            const lines = [];
+            const className = settings.className;
+            
+            lines.push('# Generated from JSON');
+            lines.push('');
+            lines.push('from dataclasses import dataclass, field');
+            
+            if (settings.useTypeHints) {
+                lines.push('from typing import List, Dict, Optional, Any');
+                lines.push('from datetime import datetime');
+            }
+            
+            lines.push('');
+            lines.push('@dataclass');
+            lines.push(`class ${className}:`);
+            lines.push(`    """${className} Dataclass - 自动生成"""`);
+            lines.push('');
+            
+            Object.entries(json).forEach(([key, value]) => {
+                const fieldName = convertFieldName(key, settings.fieldNaming);
+                const pyType = getPythonType(key, value, settings);
+                
+                if (value === null) {
+                    if (settings.useTypeHints) {
+                        lines.push(`    ${fieldName}: ${pyType} = None  # ${key}`);
+                    } else {
+                        lines.push(`    ${fieldName}: Any = None  # ${key}`);
+                    }
+                } else if (Array.isArray(value) && value.length === 0) {
+                    if (settings.useTypeHints) {
+                        lines.push(`    ${fieldName}: ${pyType} = field(default_factory=list)  # ${key}`);
+                    } else {
+                        lines.push(`    ${fieldName} = field(default_factory=list)  # ${key}`);
+                    }
+                } else if (typeof value === 'object' && value !== null && !Array.isArray(value) && Object.keys(value).length === 0) {
+                    if (settings.useTypeHints) {
+                        lines.push(`    ${fieldName}: ${pyType} = field(default_factory=dict)  # ${key}`);
+                    } else {
+                        lines.push(`    ${fieldName} = field(default_factory=dict)  # ${key}`);
+                    }
+                } else {
+                    if (settings.useTypeHints) {
+                        lines.push(`    ${fieldName}: ${pyType}  # ${key}`);
+                    } else {
+                        lines.push(`    ${fieldName}  # ${key}`);
+                    }
+                }
+            });
+            
+            return lines.join('\n');
+        }
+        
+        // 主生成函数
+        function generatePython() {
+            const input = document.getElementById('jsonInput').value.trim();
+            const output = document.getElementById('pythonOutput');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            // 清空错误
+            errorMsg.classList.remove('show');
+            document.getElementById('jsonInput').classList.remove('error');
+            
+            if (!input) {
+                output.value = '';
+                return;
+            }
+            
+            try {
+                const json = JSON.parse(input);
+                
+                if (typeof json !== 'object' || json === null) {
+                    throw new Error('JSON必须是一个对象');
+                }
+                
+                const settings = {
+                    className: document.getElementById('className').value || 'User',
+                    fieldNaming: document.getElementById('fieldNaming').value,
+                    useTypeHints: document.getElementById('useTypeHints').checked,
+                    useOptional: document.getElementById('useOptional').checked
+                };
+                
+                let code = '';
+                switch (currentTab) {
+                    case 'dict':
+                        code = generateDict(json, settings);
+                        break;
+                    case 'class':
+                        code = generateClass(json, settings);
+                        break;
+                    case 'pydantic':
+                        code = generatePydantic(json, settings);
+                        break;
+                    case 'dataclass':
+                        code = generateDataclass(json, settings);
+                        break;
+                    default:
+                        code = generateDict(json, settings);
+                }
+                
+                output.value = code;
+                document.getElementById('jsonInput').classList.add('success');
+                document.getElementById('codeStats').textContent = code.split('\n').length + ' 行';
+                
+            } catch (e) {
+                output.value = '';
+                errorMsg.textContent = 'JSON格式错误: ' + e.message;
+                errorMsg.classList.add('show');
+                document.getElementById('jsonInput').classList.add('error');
+                document.getElementById('codeStats').textContent = '0 行';
+            }
+        }
+        
+        // 复制代码
+        function copyCode() {
+            const output = document.getElementById('pythonOutput');
+            if (!output.value) {
+                showToast('请先生成Python代码');
+                return;
+            }
+            
+            navigator.clipboard.writeText(output.value).then(() => {
+                showToast('✓ 代码已复制到剪贴板');
+            }).catch(() => {
+                output.select();
+                document.execCommand('copy');
+                showToast('✓ 代码已复制到剪贴板');
+            });
+        }
+        
+        // 显示提示
+        function showToast(message) {
+            const toast = document.getElementById('copyToast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+        
+        // 清空
+        function clearAll() {
+            document.getElementById('jsonInput').value = '';
+            document.getElementById('pythonOutput').value = '';
+            document.getElementById('errorMsg').classList.remove('show');
+            document.getElementById('jsonInput').classList.remove('error', 'success');
+            document.getElementById('codeStats').textContent = '0 行';
+        }
+        
+        // 输入时自动生成
+        let timeout = null;
+        document.getElementById('jsonInput').addEventListener('input', function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(generatePython, 500);
+        });
+        
+        // 设置变化时重新生成
+        ['className', 'fieldNaming', 'useTypeHints', 'useOptional'].forEach(id => {
+            document.getElementById(id).addEventListener('change', generatePython);
+        });
+        
+        var AD_CONFIG = { enableAds: false };
+    </script>
+</body>
+</html>
