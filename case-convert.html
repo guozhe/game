@@ -6,27 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- SEO核心标签 -->
-    <title>YAML编辑器 - 在线YAML/YML格式化校验工具 | 开发工具在线</title>
-    <meta name="description" content="免费的在线YAML编辑器，支持YAML格式化、语法校验、JSON与YAML互转功能。无需注册，数据本地处理安全无忧。">
-    <meta name="keywords" content="YAML编辑器,YAML格式化,YAML校验,YML在线编辑,JSON转YAML,YAML转JSON">
+    <title>字母大小写转换 - 在线英文字母大小写转换工具 | 开发工具在线</title>
+    <meta name="description" content="免费的在线字母大小写转换工具，支持将英文字母快速转换为大写或小写。无需注册，数据本地处理安全无忧。">
+    <meta name="keywords" content="大小写转换,英文大小写,转大写,转小写,字母转换">
     <meta name="author" content="开发工具在线">
-    <link rel="canonical" href="https://kaifagongju.com/yaml.html">
+    <link rel="canonical" href="https://kaifagongju.com/case-convert.html">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="YAML编辑器 - 在线YAML/YML格式化校验工具">
-    <meta property="og:description" content="免费的在线YAML编辑器，支持YAML格式化、语法校验、JSON与YAML互转功能">
-    <meta property="og:url" content="https://kaifagongju.com/yaml.html">
+    <meta property="og:title" content="字母大小写转换 - 在线英文字母大小写转换工具">
+    <meta property="og:description" content="免费的在线字母大小写转换工具，支持将英文字母快速转换为大写或小写">
+    <meta property="og:url" content="https://kaifagongju.com/case-convert.html">
     <meta property="og:site_name" content="开发工具在线">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="YAML编辑器">
-    <meta name="twitter:description" content="免费的在线YAML编辑器，支持YAML格式化、语法校验、JSON与YAML互转功能">
     
     <!-- 页面图标 -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     
     <!-- 字体图标 -->
     <link rel="stylesheet" href="/lib/font-awesome/all.min.css">
@@ -293,6 +287,16 @@
             background: #219a52;
         }
         
+        .action-btn.danger {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+        
+        .action-btn.danger:hover {
+            background: #c0392b;
+        }
+        
         .action-spacer {
             flex: 1;
         }
@@ -302,7 +306,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
-            height: 500px;
+            height: 400px;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             overflow: hidden;
@@ -383,27 +387,33 @@
             color: #999;
         }
         
-        .editor-textarea.error {
-            background: #fff5f5;
+        /* 提示框 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 12px 24px;
+            background: #333;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
         }
         
-        /* 错误/成功提示 */
-        .error-info {
-            display: none;
-            padding: 10px 15px;
-            background: #ffe6e6;
-            color: #d63031;
-            font-size: 13px;
-            border-bottom: 1px solid #e0e0e0;
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
         
-        .error-info.show {
-            display: block;
+        .toast.success {
+            background: #27ae60;
         }
         
-        .error-info.success {
-            background: #e8f5e9;
-            color: #27ae60;
+        .toast.error {
+            background: #d63031;
         }
         
         /* 示例区 */
@@ -450,33 +460,36 @@
             border-color: #667eea;
         }
         
-        /* 提示框 */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            padding: 12px 24px;
-            background: #333;
-            color: #fff;
+        /* 转换模式选择 */
+        .mode-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
             border-radius: 8px;
+        }
+        
+        .mode-tab {
+            padding: 8px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
             font-size: 14px;
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
+            color: #666;
+            transition: all 0.2s;
         }
         
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
+        .mode-tab:hover {
+            border-color: #667eea;
+            color: #667eea;
         }
         
-        .toast.success {
-            background: #27ae60;
-        }
-        
-        .toast.error {
-            background: #d63031;
+        .mode-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
         }
         
         /* 页脚 */
@@ -580,7 +593,7 @@
             }
             
             .editor-textarea {
-                min-height: 250px;
+                min-height: 200px;
             }
             
             .action-bar {
@@ -614,9 +627,9 @@
                 
                 <!-- 数据格式 -->
                 <div class="nav-item">
-                    <a href="/yaml.html" class="active">数据格式 <span class="arrow">▼</span></a>
+                    <a href="/yaml.html">数据格式 <span class="arrow">▼</span></a>
                     <div class="nav-dropdown">
-                        <a href="/yaml.html" class="active">YAML编辑器</a>
+                        <a href="/yaml.html">YAML编辑器</a>
                         <a href="/xml-formatter.html">XML格式化</a>
                     </div>
                 </div>
@@ -629,7 +642,7 @@
                         <a href="/url-encode.html">URL编码解码</a>
                         <a href="/base64.html">Base64编码解码</a>
                         <a href="/string-concat.html">字符串拼接</a>
-                        <a href="/case-convert.html">字母大小写</a>
+                        <a href="/case-convert.html" class="active">字母大小写</a>
                         <a href="/pinyin.html">汉字转拼音</a>
                         <a href="/md5.html">MD5加密</a>
                         <div class="nav-dropdown-divider"></div>
@@ -675,11 +688,11 @@
                 <span class="separator">›</span>
             </span>
             <span class="breadcrumb-box">
-                <a href="/yaml.html">📄 数据格式</a>
+                <a href="/timestamp.html">📝 编码转换</a>
                 <span class="separator">›</span>
             </span>
             <span class="breadcrumb-box">
-                <span class="current">✨ YAML编辑器</span>
+                <span class="current">✨ 字母大小写转换</span>
             </span>
         </nav>
     </div>
@@ -688,79 +701,71 @@
     <div class="container">
         <section class="tool-section">
             <div class="tool-header">
-                <h1>📄 YAML / YML 在线编辑器</h1>
-                <p>支持 YAML 格式化、语法校验、JSON 与 YAML 互转</p>
+                <h1>🔤 字母大小写转换</h1>
+                <p>支持将英文字母快速转换为大写或小写</p>
             </div>
             <div class="tool-content">
                 <!-- 操作按钮 -->
                 <div class="action-bar">
-                    <button class="action-btn primary" onclick="formatYAML()" title="格式化 YAML 代码">
-                        <i class="fas fa-indent"></i> 格式化
+                    <button class="action-btn primary" onclick="convertToUpper()" title="转换为大写">
+                        <i class="fas fa-arrow-up"></i> 转大写
                     </button>
-                    <button class="action-btn" onclick="validateYAML()" title="校验 YAML 语法">
-                        <i class="fas fa-check-circle"></i> 校验
-                    </button>
-                    <button class="action-btn" onclick="yamlToJson()" title="将 YAML 转换为 JSON">
-                        <i class="fas fa-arrow-right"></i> YAML → JSON
-                    </button>
-                    <button class="action-btn" onclick="jsonToYaml()" title="将 JSON 转换为 YAML">
-                        <i class="fas fa-arrow-left"></i> JSON → YAML
+                    <button class="action-btn primary" onclick="convertToLower()" title="转换为小写">
+                        <i class="fas fa-arrow-down"></i> 转小写
                     </button>
                     <div class="action-spacer"></div>
-                    <button class="action-btn" onclick="clearAll()" title="清空所有内容">
+                    <button class="action-btn success" onclick="copyResult()" title="复制转换结果">
+                        <i class="fas fa-copy"></i> 复制结果
+                    </button>
+                    <button class="action-btn danger" onclick="clearAll()" title="清空所有内容">
                         <i class="fas fa-trash-alt"></i> 清空
                     </button>
                 </div>
 
                 <!-- 编辑器区域 -->
                 <div class="editor-container">
-                    <!-- YAML 输入区 -->
+                    <!-- 输入区 -->
                     <div class="editor-pane">
                         <div class="pane-header">
-                            <span><i class="fas fa-file-code"></i> YAML / YML 输入</span>
+                            <span><i class="fas fa-edit"></i> 原文输入</span>
                             <div class="pane-actions">
-                                <button class="pane-action" onclick="loadSample('basic')" title="加载示例">
+                                <button class="pane-action" onclick="loadSample()" title="加载示例">
                                     <i class="fas fa-book"></i> 示例
                                 </button>
-                                <button class="pane-action" onclick="copyToClipboard(yamlEditor.value, 'YAML')" title="复制 YAML">
+                                <button class="pane-action" onclick="copyToClipboard(inputEditor.value, '原文')" title="复制原文">
                                     <i class="fas fa-copy"></i> 复制
                                 </button>
                             </div>
                         </div>
-                        <div id="errorInfoYAML" class="error-info"></div>
-                        <textarea id="yamlEditor" class="editor-textarea" placeholder="请输入 YAML 代码..." spellcheck="false"></textarea>
+                        <textarea id="inputEditor" class="editor-textarea" placeholder="请输入需要转换的英文字母或文本..." spellcheck="false"></textarea>
                     </div>
 
-                    <!-- JSON 输出区 -->
+                    <!-- 输出区 -->
                     <div class="editor-pane">
                         <div class="pane-header">
-                            <span><i class="fas fa-file-alt"></i> JSON 输出</span>
+                            <span><i class="fas fa-check-circle"></i> 转换结果</span>
                             <div class="pane-actions">
-                                <button class="pane-action" onclick="copyToClipboard(jsonEditor.value, 'JSON')" title="复制 JSON">
+                                <button class="pane-action primary" onclick="copyResult()" title="复制结果">
                                     <i class="fas fa-copy"></i> 复制
-                                </button>
-                                <button class="pane-action primary" onclick="downloadContent(jsonEditor.value, 'output.json')" title="下载 JSON">
-                                    <i class="fas fa-download"></i> 下载
                                 </button>
                             </div>
                         </div>
-                        <div id="errorInfoJSON" class="error-info"></div>
-                        <textarea id="jsonEditor" class="editor-textarea" placeholder="JSON 输出将显示在这里..." spellcheck="false"></textarea>
+                        <textarea id="outputEditor" class="editor-textarea" placeholder="转换后的结果将显示在这里..." spellcheck="false"></textarea>
                     </div>
                 </div>
 
-                <!-- 示例代码 -->
+                <!-- 示例区 -->
                 <div class="sample-section">
                     <div class="sample-header">
                         <span class="sample-title"><i class="fas fa-lightbulb"></i> 快速示例</span>
                     </div>
                     <div class="sample-list">
-                        <button class="sample-item" onclick="loadSample('basic')">基础配置</button>
-                        <button class="sample-item" onclick="loadSample('array')">数组对象</button>
-                        <button class="sample-item" onclick="loadSample('nested')">嵌套结构</button>
-                        <button class="sample-item" onclick="loadSample('k8s')">Kubernetes配置</button>
-                        <button class="sample-item" onclick="loadSample('docker')">Docker Compose</button>
-                        <button class="sample-item" onclick="loadSample('github')">GitHub Actions</button>
+                        <button class="sample-item" onclick="loadSample('mixed')">混合大小写</button>
+                        <button class="sample-item" onclick="loadSample('upper')">全大写</button>
+                        <button class="sample-item" onclick="loadSample('lower')">全小写</button>
+                        <button class="sample-item" onclick="loadSample('sentence')">英文句子</button>
+                        <button class="sample-item" onclick="loadSample('code')">代码片段</button>
+                        <button class="sample-item" onclick="loadSample('title')">标题格式</button>
                     </div>
                 </div>
             </div>
@@ -774,7 +779,7 @@
                 <div class="footer-section">
                     <h4>关于网站</h4>
                     <p style="font-size: 14px; line-height: 1.8; color: #666;">
-                        开发工具在线是一个免费的在线开发者工具网站，提供JSON解析、YAML编辑等实用功能。无需注册，打开即可使用，数据全程本地处理，安全放心。
+                        开发工具在线是一个免费的在线开发者工具网站，提供JSON解析、字母大小写转换等实用功能。无需注册，打开即可使用，数据全程本地处理，安全放心。
                     </p>
                 </div>
                 
@@ -808,9 +813,6 @@
 
     <!-- 提示框 -->
     <div id="toast" class="toast"></div>
-
-    <!-- js-yaml 库 -->
-    <script src="/lib/jsyaml/js-yaml.min.js"></script>
     
     <script>
         // 移动端菜单切换
@@ -819,10 +821,8 @@
         }
         
         // DOM 元素
-        const yamlEditor = document.getElementById('yamlEditor');
-        const jsonEditor = document.getElementById('jsonEditor');
-        const errorInfoYAML = document.getElementById('errorInfoYAML');
-        const errorInfoJSON = document.getElementById('errorInfoJSON');
+        const inputEditor = document.getElementById('inputEditor');
+        const outputEditor = document.getElementById('outputEditor');
         const toast = document.getElementById('toast');
 
         // 显示提示
@@ -854,346 +854,72 @@
             }
         }
 
-        // 下载内容
-        function downloadContent(content, filename) {
-            if (!content.trim()) {
-                showToast('内容为空，无法下载', 'error');
+        // 复制结果
+        function copyResult() {
+            const result = outputEditor.value;
+            if (!result.trim()) {
+                showToast('结果为空，请先进行转换', 'error');
                 return;
             }
-            const blob = new Blob([content], { type: 'application/json;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            showToast('文件已开始下载', 'success');
+            copyToClipboard(result, '转换结果');
         }
 
-        // YAML 转 JSON
-        function yamlToJson() {
-            const yaml = yamlEditor.value;
-            if (!yaml.trim()) {
-                errorInfoYAML.textContent = '请输入 YAML 内容';
-                errorInfoYAML.className = 'error-info show';
+        // 转换为大写
+        function convertToUpper() {
+            const input = inputEditor.value;
+            if (!input.trim()) {
+                showToast('请输入需要转换的文本', 'error');
                 return;
             }
-            
-            try {
-                const obj = jsyaml.load(yaml);
-                const json = JSON.stringify(obj, null, 2);
-                jsonEditor.value = json;
-                errorInfoYAML.className = 'error-info show success';
-                errorInfoYAML.textContent = '✓ YAML 转换为 JSON 成功';
-                yamlEditor.classList.remove('error');
-                setTimeout(() => {
-                    errorInfoYAML.className = 'error-info';
-                }, 3000);
-            } catch (err) {
-                yamlEditor.classList.add('error');
-                errorInfoYAML.className = 'error-info show';
-                errorInfoYAML.textContent = '✗ YAML 语法错误: ' + err.message;
-                jsonEditor.value = '';
-            }
+            outputEditor.value = input.toUpperCase();
+            showToast('已转换为大写', 'success');
         }
 
-        // JSON 转 YAML
-        function jsonToYaml() {
-            const json = jsonEditor.value;
-            if (!json.trim()) {
-                errorInfoJSON.textContent = '请输入 JSON 内容';
-                errorInfoJSON.className = 'error-info show';
+        // 转换为小写
+        function convertToLower() {
+            const input = inputEditor.value;
+            if (!input.trim()) {
+                showToast('请输入需要转换的文本', 'error');
                 return;
             }
-            
-            try {
-                const obj = JSON.parse(json);
-                const yaml = jsyaml.dump(obj, {
-                    indent: 2,
-                    lineWidth: 120,
-                    noRefs: true,
-                    sortKeys: false
-                });
-                yamlEditor.value = yaml;
-                errorInfoJSON.className = 'error-info show success';
-                errorInfoJSON.textContent = '✓ JSON 转换为 YAML 成功';
-                setTimeout(() => {
-                    errorInfoJSON.className = 'error-info';
-                }, 3000);
-            } catch (err) {
-                errorInfoJSON.className = 'error-info show';
-                errorInfoJSON.textContent = '✗ JSON 格式错误: ' + err.message;
-            }
-        }
-
-        // 格式化 YAML
-        function formatYAML() {
-            const yaml = yamlEditor.value;
-            if (!yaml.trim()) {
-                showToast('请输入 YAML 内容', 'error');
-                return;
-            }
-            
-            try {
-                const obj = jsyaml.load(yaml);
-                const formatted = jsyaml.dump(obj, {
-                    indent: 2,
-                    lineWidth: 120,
-                    noRefs: true
-                });
-                yamlEditor.value = formatted;
-                errorInfoYAML.className = 'error-info show success';
-                errorInfoYAML.textContent = '✓ YAML 格式化成功';
-                yamlEditor.classList.remove('error');
-                setTimeout(() => {
-                    errorInfoYAML.className = 'error-info';
-                }, 3000);
-            } catch (err) {
-                yamlEditor.classList.add('error');
-                errorInfoYAML.className = 'error-info show';
-                errorInfoYAML.textContent = '✗ YAML 语法错误: ' + err.message;
-            }
-        }
-
-        // 校验 YAML
-        function validateYAML() {
-            const yaml = yamlEditor.value;
-            if (!yaml.trim()) {
-                showToast('请输入 YAML 内容', 'error');
-                return;
-            }
-            
-            try {
-                jsyaml.load(yaml);
-                errorInfoYAML.className = 'error-info show success';
-                errorInfoYAML.textContent = '✓ YAML 语法校验通过，无错误';
-                yamlEditor.classList.remove('error');
-                setTimeout(() => {
-                    errorInfoYAML.className = 'error-info';
-                }, 3000);
-                showToast('YAML 语法正确', 'success');
-            } catch (err) {
-                yamlEditor.classList.add('error');
-                errorInfoYAML.className = 'error-info show';
-                errorInfoYAML.textContent = '✗ YAML 语法错误: ' + err.message;
-                showToast('YAML 语法错误', 'error');
-            }
+            outputEditor.value = input.toLowerCase();
+            showToast('已转换为小写', 'success');
         }
 
         // 清空所有
         function clearAll() {
-            yamlEditor.value = '';
-            jsonEditor.value = '';
-            yamlEditor.classList.remove('error');
-            errorInfoYAML.className = 'error-info';
-            errorInfoJSON.className = 'error-info';
+            inputEditor.value = '';
+            outputEditor.value = '';
             showToast('已清空所有内容');
         }
 
         // 加载示例
         function loadSample(type) {
             const samples = {
-                basic: `# 应用配置
-app:
-  name: MyApplication
-  version: 1.0.0
-  environment: production
-  
-server:
-  host: localhost
-  port: 8080
-  ssl:
-    enabled: true
-    cert: /path/to/cert.pem
-    key: /path/to/key.pem
-
-database:
-  type: postgresql
-  host: db.example.com
-  port: 5432
-  name: myapp_db
-  user: admin
-  pool:
-    min: 2
-    max: 10`,
-                
-                array: `# 用户列表
-users:
-  - id: 1
-    name: 张三
-    email: zhangsan@example.com
-    roles:
-      - admin
-      - developer
-    active: true
-    
-  - id: 2
-    name: 李四
-    email: lisi@example.com
-    roles:
-      - user
-    active: true
-    
-  - id: 3
-    name: 王五
-    email: wangwu@example.com
-    roles:
-      - guest
-    active: false`,
-                
-                nested: `# 复杂配置示例
-organization:
-  name: TechCorp
-  founded: 2020
-  departments:
-    engineering:
-      headcount: 50
-      projects:
-        - name: CloudPlatform
-          status: active
-          budget: 5000000
-        - name: MobileApp
-          status: planning
-          budget: 2000000
-    marketing:
-      headcount: 20
-      campaigns:
-        - name: SummerSale
-          startDate: 2024-06-01
-          endDate: 2024-08-31`,
-                
-                k8s: `# Kubernetes Deployment 配置
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-        - name: nginx
-          image: nginx:1.21
-          ports:
-            - containerPort: 80
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
-            requests:
-              memory: "64Mi"
-              cpu: "250m"`,
-                
-                docker: `# Docker Compose 配置
-version: '3.8'
-
-services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    environment:
-      NODE_ENV: production
-      DATABASE_URL: postgres://user:pass@db:5432/myapp
-    depends_on:
-      - db
-      - redis
-    volumes:
-      - ./data:/app/data
-
-  db:
-    image: postgres:14-alpine
-    environment:
-      POSTGRES_DB: myapp
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
-  redis:
-    image: redis:7-alpine
-
-volumes:
-  db_data:
-
-networks:
-  frontend:
-  backend:`,
-                
-                github: `# GitHub Actions 工作流
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-
-env:
-  NODE_VERSION: '18.x'
-  REGISTRY: ghcr.io
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: \${{ env.NODE_VERSION }}
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Run tests
-        run: npm test -- --coverage
-      
-      - name: Build
-        run: npm run build
-  
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Deploy to server
-        run: |
-          echo "Deploying to production server..."`
+                mixed: 'Hello World!\nWelcome to Developer Tools.\nThis is a MiXeD CaSe TeXt.',
+                upper: 'HELLO WORLD!\nTHIS IS ALL UPPERCASE.\nWELCOME TO OUR TOOLS.',
+                lower: 'hello world!\nthis is all lowercase.\nwelcome to our tools.',
+                sentence: 'The Quick Brown Fox Jumps Over The Lazy Dog.\nPack my box with five dozen liquor jugs.\nHow vexingly quick daft zebras jump!',
+                code: 'function myFunction() {\n    const HELLO_WORLD = \"Hello, World!\";\n    console.log(HELLO_WORLD);\n}\n\nconst API_KEY = \"sk-1234567890abcdef\";\nconst DATABASE_URL = \"postgresql://localhost:5432/mydb\";',
+                title: 'The Art of Programming\nMastering JavaScript\nPython Crash Course\nClean Code: A Handbook'
             };
             
             const sampleNames = {
-                basic: '基础配置',
-                array: '数组对象',
-                nested: '嵌套结构',
-                k8s: 'Kubernetes配置',
-                docker: 'Docker Compose',
-                github: 'GitHub Actions'
+                mixed: '混合大小写',
+                upper: '全大写',
+                lower: '全小写',
+                sentence: '英文句子',
+                code: '代码片段',
+                title: '标题格式'
             };
             
-            yamlEditor.value = samples[type] || samples.basic;
-            yamlEditor.classList.remove('error');
-            errorInfoYAML.className = 'error-info';
+            inputEditor.value = samples[type] || samples.mixed;
+            outputEditor.value = '';
             showToast('已加载示例: ' + sampleNames[type]);
         }
 
         // Tab 键支持
-        yamlEditor.addEventListener('keydown', function(e) {
+        inputEditor.addEventListener('keydown', function(e) {
             if (e.key === 'Tab') {
                 e.preventDefault();
                 const start = this.selectionStart;
@@ -1203,7 +929,7 @@ jobs:
             }
         });
 
-        jsonEditor.addEventListener('keydown', function(e) {
+        outputEditor.addEventListener('keydown', function(e) {
             if (e.key === 'Tab') {
                 e.preventDefault();
                 const start = this.selectionStart;
@@ -1215,20 +941,20 @@ jobs:
 
         // 键盘快捷键
         document.addEventListener('keydown', function(e) {
-            // Ctrl/Cmd + Enter: 格式化
-            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            // Ctrl/Cmd + U: 转大写
+            if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
                 e.preventDefault();
-                formatYAML();
+                convertToUpper();
             }
-            // Ctrl/Cmd + Shift + V: 校验
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'V') {
+            // Ctrl/Cmd + L: 转小写
+            if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
                 e.preventDefault();
-                validateYAML();
+                convertToLower();
             }
-            // Ctrl/Cmd + Shift + J: JSON 转 YAML
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') {
+            // Ctrl/Cmd + Shift + C: 复制结果
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
                 e.preventDefault();
-                jsonToYaml();
+                copyResult();
             }
         });
     </script>

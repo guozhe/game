@@ -6,30 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- SEO核心标签 -->
-    <title>YAML编辑器 - 在线YAML/YML格式化校验工具 | 开发工具在线</title>
-    <meta name="description" content="免费的在线YAML编辑器，支持YAML格式化、语法校验、JSON与YAML互转功能。无需注册，数据本地处理安全无忧。">
-    <meta name="keywords" content="YAML编辑器,YAML格式化,YAML校验,YML在线编辑,JSON转YAML,YAML转JSON">
+    <title>字符串拼接工具 - 多语言字符串转义 | 开发工具在线</title>
+    <meta name="description" content="字符串拼接工具，支持将普通文本转换为Java、PHP、JavaScript、Python等编程语言的字符串格式。一键转义，轻松处理多语言字符串拼接需求。">
+    <meta name="keywords" content="字符串拼接,字符串转义,html转js,java字符串,php字符串,python字符串">
     <meta name="author" content="开发工具在线">
-    <link rel="canonical" href="https://kaifagongju.com/yaml.html">
+    <link rel="canonical" href="https://kaifagongju.com/string-concat.html">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="YAML编辑器 - 在线YAML/YML格式化校验工具">
-    <meta property="og:description" content="免费的在线YAML编辑器，支持YAML格式化、语法校验、JSON与YAML互转功能">
-    <meta property="og:url" content="https://kaifagongju.com/yaml.html">
+    <meta property="og:title" content="字符串拼接工具 - 多语言字符串转义">
+    <meta property="og:description" content="支持多语言字符串转义的在线工具">
+    <meta property="og:url" content="https://kaifagongju.com/string-concat.html">
     <meta property="og:site_name" content="开发工具在线">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="YAML编辑器">
-    <meta name="twitter:description" content="免费的在线YAML编辑器，支持YAML格式化、语法校验、JSON与YAML互转功能">
+    <meta name="twitter:title" content="字符串拼接工具">
+    <meta name="twitter:description" content="支持多语言字符串转义的在线工具">
     
     <!-- 页面图标 -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     
     <!-- 字体图标 -->
     <link rel="stylesheet" href="/lib/font-awesome/all.min.css">
+    
+    <!-- CodeMirror 编辑器 -->
+    <link rel="stylesheet" href="/lib/codemirror/codemirror.css">
+    <script src="/lib/codemirror/codemirror.min.js"></script>
     
     <style>
         * {
@@ -293,6 +296,26 @@
             background: #219a52;
         }
         
+        .action-btn.info {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .action-btn.info:hover {
+            background: #2980b9;
+        }
+        
+        .action-btn.warning {
+            background: #e67e22;
+            color: white;
+            border-color: #e67e22;
+        }
+        
+        .action-btn.warning:hover {
+            background: #d35400;
+        }
+        
         .action-spacer {
             flex: 1;
         }
@@ -302,7 +325,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
-            height: 500px;
+            height: 450px;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             overflow: hidden;
@@ -364,90 +387,53 @@
             background: #5a6fd6;
         }
         
-        .editor-textarea {
+        .editor-wrapper {
             flex: 1;
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* CodeMirror 样式 */
+        .CodeMirror {
+            flex: 1;
+            height: 100% !important;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .CodeMirror-gutters {
+            border-right: 1px solid #e0e0e0;
+            background-color: #f8f9fa;
+        }
+        
+        .CodeMirror-linenumber {
+            color: #999;
+        }
+        
+        .CodeMirror-scroll {
+            height: 100% !important;
+            overflow-y: auto !important;
+            overflow-x: auto !important;
+        }
+        
+        .output-area {
+            flex: 1;
             padding: 15px;
-            border: none;
-            outline: none;
-            resize: none;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             font-size: 14px;
             line-height: 1.6;
             background: white;
             color: #333;
-            tab-size: 2;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
         }
         
-        .editor-textarea::placeholder {
+        .output-area:empty::before {
+            content: '转换结果将显示在这里...';
             color: #999;
-        }
-        
-        .editor-textarea.error {
-            background: #fff5f5;
-        }
-        
-        /* 错误/成功提示 */
-        .error-info {
-            display: none;
-            padding: 10px 15px;
-            background: #ffe6e6;
-            color: #d63031;
-            font-size: 13px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .error-info.show {
-            display: block;
-        }
-        
-        .error-info.success {
-            background: #e8f5e9;
-            color: #27ae60;
-        }
-        
-        /* 示例区 */
-        .sample-section {
-            margin-top: 15px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-        
-        .sample-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .sample-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: #666;
-        }
-        
-        .sample-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        
-        .sample-item {
-            padding: 6px 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            background: white;
-            cursor: pointer;
-            font-size: 12px;
-            color: #666;
-            transition: all 0.2s;
-        }
-        
-        .sample-item:hover {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
         }
         
         /* 提示框 */
@@ -579,8 +565,12 @@
                 border-bottom: 1px solid #e0e0e0;
             }
             
-            .editor-textarea {
+            .editor-wrapper {
                 min-height: 250px;
+            }
+            
+            .output-area {
+                min-height: 200px;
             }
             
             .action-bar {
@@ -614,9 +604,9 @@
                 
                 <!-- 数据格式 -->
                 <div class="nav-item">
-                    <a href="/yaml.html" class="active">数据格式 <span class="arrow">▼</span></a>
+                    <a href="/yaml.html">数据格式 <span class="arrow">▼</span></a>
                     <div class="nav-dropdown">
-                        <a href="/yaml.html" class="active">YAML编辑器</a>
+                        <a href="/yaml.html">YAML编辑器</a>
                         <a href="/xml-formatter.html">XML格式化</a>
                     </div>
                 </div>
@@ -628,7 +618,7 @@
                         <a href="/timestamp.html">时间戳转换</a>
                         <a href="/url-encode.html">URL编码解码</a>
                         <a href="/base64.html">Base64编码解码</a>
-                        <a href="/string-concat.html">字符串拼接</a>
+                        <a href="/string-concat.html" class="active">字符串拼接</a>
                         <a href="/case-convert.html">字母大小写</a>
                         <a href="/pinyin.html">汉字转拼音</a>
                         <a href="/md5.html">MD5加密</a>
@@ -675,11 +665,11 @@
                 <span class="separator">›</span>
             </span>
             <span class="breadcrumb-box">
-                <a href="/yaml.html">📄 数据格式</a>
+                <a href="/">🔧 开发工具</a>
                 <span class="separator">›</span>
             </span>
             <span class="breadcrumb-box">
-                <span class="current">✨ YAML编辑器</span>
+                <span class="current">✨ 字符串拼接</span>
             </span>
         </nav>
     </div>
@@ -688,79 +678,70 @@
     <div class="container">
         <section class="tool-section">
             <div class="tool-header">
-                <h1>📄 YAML / YML 在线编辑器</h1>
-                <p>支持 YAML 格式化、语法校验、JSON 与 YAML 互转</p>
+                <h1>🔗 字符串拼接工具</h1>
+                <p>将普通文本转换为多种编程语言的字符串格式</p>
             </div>
             <div class="tool-content">
                 <!-- 操作按钮 -->
                 <div class="action-bar">
-                    <button class="action-btn primary" onclick="formatYAML()" title="格式化 YAML 代码">
-                        <i class="fas fa-indent"></i> 格式化
+                    <button class="action-btn primary" onclick="convertTo('java')">
+                        <i class="fas fa-coffee"></i> 转Java
                     </button>
-                    <button class="action-btn" onclick="validateYAML()" title="校验 YAML 语法">
-                        <i class="fas fa-check-circle"></i> 校验
+                    <button class="action-btn primary" onclick="convertTo('php')">
+                        <i class="fab fa-php"></i> 转PHP
                     </button>
-                    <button class="action-btn" onclick="yamlToJson()" title="将 YAML 转换为 JSON">
-                        <i class="fas fa-arrow-right"></i> YAML → JSON
+                    <button class="action-btn primary" onclick="convertTo('js')">
+                        <i class="fab fa-js-square"></i> 转JS
                     </button>
-                    <button class="action-btn" onclick="jsonToYaml()" title="将 JSON 转换为 YAML">
-                        <i class="fas fa-arrow-left"></i> JSON → YAML
+                    <button class="action-btn primary" onclick="convertTo('python')">
+                        <i class="fab fa-python"></i> 转Python
+                    </button>
+                    <button class="action-btn info" onclick="convertTo('c')">
+                        <i class="fas fa-code"></i> 转C/C++
+                    </button>
+                    <button class="action-btn warning" onclick="convertTo('go')">
+                        <i class="fas fa-dove"></i> 转Go
                     </button>
                     <div class="action-spacer"></div>
-                    <button class="action-btn" onclick="clearAll()" title="清空所有内容">
+                    <button class="action-btn" onclick="loadDemo()">
+                        <i class="fas fa-file-code"></i> 示例
+                    </button>
+                    <button class="action-btn" onclick="clearAll()">
                         <i class="fas fa-trash-alt"></i> 清空
                     </button>
                 </div>
 
                 <!-- 编辑器区域 -->
                 <div class="editor-container">
-                    <!-- YAML 输入区 -->
+                    <!-- 输入区 -->
                     <div class="editor-pane">
                         <div class="pane-header">
-                            <span><i class="fas fa-file-code"></i> YAML / YML 输入</span>
+                            <span><i class="fas fa-edit"></i> 输入文本</span>
                             <div class="pane-actions">
-                                <button class="pane-action" onclick="loadSample('basic')" title="加载示例">
+                                <button class="pane-action" onclick="loadDemo()" title="加载示例">
                                     <i class="fas fa-book"></i> 示例
-                                </button>
-                                <button class="pane-action" onclick="copyToClipboard(yamlEditor.value, 'YAML')" title="复制 YAML">
-                                    <i class="fas fa-copy"></i> 复制
                                 </button>
                             </div>
                         </div>
-                        <div id="errorInfoYAML" class="error-info"></div>
-                        <textarea id="yamlEditor" class="editor-textarea" placeholder="请输入 YAML 代码..." spellcheck="false"></textarea>
+                        <div class="editor-wrapper">
+                            <textarea id="inputText" placeholder="请输入需要转换的文本内容..."></textarea>
+                        </div>
                     </div>
 
-                    <!-- JSON 输出区 -->
+                    <!-- 输出区 -->
                     <div class="editor-pane">
                         <div class="pane-header">
-                            <span><i class="fas fa-file-alt"></i> JSON 输出</span>
+                            <span><i class="fas fa-file-code"></i> 转换结果</span>
                             <div class="pane-actions">
-                                <button class="pane-action" onclick="copyToClipboard(jsonEditor.value, 'JSON')" title="复制 JSON">
+                                <button class="pane-action primary" onclick="copyResult()" title="复制代码">
                                     <i class="fas fa-copy"></i> 复制
                                 </button>
-                                <button class="pane-action primary" onclick="downloadContent(jsonEditor.value, 'output.json')" title="下载 JSON">
+                                <button class="pane-action primary" onclick="downloadResult()" title="下载代码">
                                     <i class="fas fa-download"></i> 下载
                                 </button>
                             </div>
                         </div>
-                        <div id="errorInfoJSON" class="error-info"></div>
-                        <textarea id="jsonEditor" class="editor-textarea" placeholder="JSON 输出将显示在这里..." spellcheck="false"></textarea>
-                    </div>
-                </div>
-
-                <!-- 示例代码 -->
-                <div class="sample-section">
-                    <div class="sample-header">
-                        <span class="sample-title"><i class="fas fa-lightbulb"></i> 快速示例</span>
-                    </div>
-                    <div class="sample-list">
-                        <button class="sample-item" onclick="loadSample('basic')">基础配置</button>
-                        <button class="sample-item" onclick="loadSample('array')">数组对象</button>
-                        <button class="sample-item" onclick="loadSample('nested')">嵌套结构</button>
-                        <button class="sample-item" onclick="loadSample('k8s')">Kubernetes配置</button>
-                        <button class="sample-item" onclick="loadSample('docker')">Docker Compose</button>
-                        <button class="sample-item" onclick="loadSample('github')">GitHub Actions</button>
+                        <div class="output-area" id="outputBox"></div>
                     </div>
                 </div>
             </div>
@@ -808,429 +789,241 @@
 
     <!-- 提示框 -->
     <div id="toast" class="toast"></div>
-
-    <!-- js-yaml 库 -->
-    <script src="/lib/jsyaml/js-yaml.min.js"></script>
     
     <script>
+        // 全局变量
+        var editor;
+        
+        // 初始化 CodeMirror 编辑器
+        document.addEventListener('DOMContentLoaded', function() {
+            editor = CodeMirror.fromTextArea(document.getElementById('inputText'), {
+                mode: 'text',
+                lineNumbers: true,
+                lineWrapping: true,
+                placeholder: '请输入需要转换的文本内容...',
+                autofocus: true
+            });
+        });
+        
         // 移动端菜单切换
         function toggleMenu() {
             document.getElementById('navLinks').classList.toggle('active');
         }
         
-        // DOM 元素
-        const yamlEditor = document.getElementById('yamlEditor');
-        const jsonEditor = document.getElementById('jsonEditor');
-        const errorInfoYAML = document.getElementById('errorInfoYAML');
-        const errorInfoJSON = document.getElementById('errorInfoJSON');
-        const toast = document.getElementById('toast');
-
         // 显示提示
         function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.className = 'toast show ' + type;
             setTimeout(() => {
                 toast.className = 'toast';
             }, 3000);
         }
-
-        // 复制到剪贴板
-        async function copyToClipboard(text, type) {
-            if (!text.trim()) {
-                showToast('内容为空，无法复制', 'error');
+        
+        // 字符串转义函数
+        function escapeForJava(str) {
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                const code = char.charCodeAt(0);
+                if (code < 128) {
+                    if (char === '\\') result += '\\\\';
+                    else if (char === '"') result += '\\"';
+                    else if (char === '\n') result += '\\n';
+                    else if (char === '\r') result += '\\r';
+                    else if (char === '\t') result += '\\t';
+                    else result += char;
+                } else {
+                    result += '\\u' + ('0000' + code.toString(16)).slice(-4);
+                }
+            }
+            return result;
+        }
+        
+        function escapeForPHP(str) {
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                if (char === '\\') result += '\\\\';
+                else if (char === "'") result += "\\'";
+                else if (char === '"') result += '\\"';
+                else if (char === '\n') result += '\\n';
+                else if (char === '\r') result += '\\r';
+                else if (char === '\t') result += '\\t';
+                else result += char;
+            }
+            return result;
+        }
+        
+        function escapeForJS(str) {
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                if (char === '\\') result += '\\\\';
+                else if (char === '"') result += '\\"';
+                else if (char === "'") result += "\\'";
+                else if (char === '`') result += '\\`';
+                else if (char === '\n') result += '\\n';
+                else if (char === '\r') result += '\\r';
+                else if (char === '\t') result += '\\t';
+                else result += char;
+            }
+            return result;
+        }
+        
+        function escapeForPython(str) {
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                if (char === '\\') result += '\\\\';
+                else if (char === '"') result += '\\"';
+                else if (char === "'") result += "\\'";
+                else if (char === '\n') result += '\\n';
+                else if (char === '\r') result += '\\r';
+                else if (char === '\t') result += '\\t';
+                else result += char;
+            }
+            return result;
+        }
+        
+        function escapeForC(str) {
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                if (char === '\\') result += '\\\\';
+                else if (char === '"') result += '\\"';
+                else if (char === "'") result += "\\'";
+                else if (char === '\n') result += '\\n';
+                else if (char === '\r') result += '\\r';
+                else if (char === '\t') result += '\\t';
+                else result += char;
+            }
+            return result;
+        }
+        
+        function escapeForGo(str) {
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                if (char === '\\') result += '\\\\';
+                else if (char === '"') result += '\\"';
+                else if (char === '`') result += '` + "`" + `';
+                else if (char === '\n') result += '\\n';
+                else if (char === '\r') result += '\\r';
+                else if (char === '\t') result += '\\t';
+                else result += char;
+            }
+            return result;
+        }
+        
+        // 转换函数
+        function convertTo(lang) {
+            const input = editor.getValue();
+            const output = document.getElementById('outputBox');
+            
+            if (!input.trim()) {
+                showToast('请先输入需要转换的文本内容！', 'error');
                 return;
             }
-            try {
-                await navigator.clipboard.writeText(text);
-                showToast(type + ' 已复制到剪贴板', 'success');
-            } catch (err) {
+            
+            let result = '';
+            
+            switch(lang) {
+                case 'java':
+                    const escapedJava = escapeForJava(input);
+                    result = '// Java 字符串\nString str = "' + escapedJava + '";';
+                    break;
+                case 'php':
+                    const escapedPHP = escapeForPHP(input);
+                    result = '<?php\n// PHP 字符串\n$str = "' + escapedPHP + '";\n?>';
+                    break;
+                case 'js':
+                    const escapedJS = escapeForJS(input);
+                    const templateStr = input.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\${/g, '\\${');
+                    result = '// JavaScript 字符串\nconst str1 = "' + escapedJS + '";\n\n// 模板字符串\nconst str2 = `' + templateStr + '`;';
+                    break;
+                case 'python':
+                    const escapedPython = escapeForPython(input);
+                    result = '# Python 字符串\nstr_var = "' + escapedPython + '"';
+                    break;
+                case 'c':
+                    const escapedC = escapeForC(input);
+                    result = '// C/C++ 字符串\nconst char* str = "' + escapedC + '";';
+                    break;
+                case 'go':
+                    const escapedGo = escapeForGo(input);
+                    result = '// Go 字符串 (双引号)\nstr1 := "' + escapedGo + '"\n\n// Go 字符串 (反引号，原始字符串)\nstr2 := `' + input.replace(/\\/g, '\\\\') + '`';
+                    break;
+            }
+            
+            output.textContent = result;
+            showToast('转换成功！', 'success');
+        }
+        
+        // 加载示例
+        function loadDemo() {
+            const demoText = `欢迎使用开发工具在线！
+这是一个示例文本，包含多种特殊字符：
+
+1. 英文标点: "Hello, World!"
+2. 中文内容: 你好，世界！
+3. 特殊符号: @#$%^&*()
+4. 换行符和	制表符
+5. 网址: https://kaifagongju.com
+6. 邮箱: test@example.com`;
+
+            editor.setValue(demoText);
+            document.getElementById('outputBox').textContent = '';
+            showToast('已加载示例文本');
+        }
+        
+        // 清空
+        function clearAll() {
+            editor.setValue('');
+            document.getElementById('outputBox').textContent = '';
+            showToast('已清空所有内容');
+        }
+        
+        // 复制结果
+        function copyResult() {
+            const output = document.getElementById('outputBox').textContent;
+            if (!output) {
+                showToast('没有可复制的内容', 'error');
+                return;
+            }
+            
+            navigator.clipboard.writeText(output).then(() => {
+                showToast('复制成功！', 'success');
+            }).catch(() => {
                 const textarea = document.createElement('textarea');
-                textarea.value = text;
+                textarea.value = output;
                 document.body.appendChild(textarea);
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                showToast(type + ' 已复制到剪贴板', 'success');
-            }
+                showToast('复制成功！', 'success');
+            });
         }
-
-        // 下载内容
-        function downloadContent(content, filename) {
-            if (!content.trim()) {
-                showToast('内容为空，无法下载', 'error');
+        
+        // 下载结果
+        function downloadResult() {
+            const output = document.getElementById('outputBox').textContent;
+            if (!output) {
+                showToast('没有可下载的内容', 'error');
                 return;
             }
-            const blob = new Blob([content], { type: 'application/json;charset=utf-8' });
+            
+            const blob = new Blob([output], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = filename;
+            a.download = 'string-code.txt';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            showToast('文件已开始下载', 'success');
+            showToast('下载成功！', 'success');
         }
-
-        // YAML 转 JSON
-        function yamlToJson() {
-            const yaml = yamlEditor.value;
-            if (!yaml.trim()) {
-                errorInfoYAML.textContent = '请输入 YAML 内容';
-                errorInfoYAML.className = 'error-info show';
-                return;
-            }
-            
-            try {
-                const obj = jsyaml.load(yaml);
-                const json = JSON.stringify(obj, null, 2);
-                jsonEditor.value = json;
-                errorInfoYAML.className = 'error-info show success';
-                errorInfoYAML.textContent = '✓ YAML 转换为 JSON 成功';
-                yamlEditor.classList.remove('error');
-                setTimeout(() => {
-                    errorInfoYAML.className = 'error-info';
-                }, 3000);
-            } catch (err) {
-                yamlEditor.classList.add('error');
-                errorInfoYAML.className = 'error-info show';
-                errorInfoYAML.textContent = '✗ YAML 语法错误: ' + err.message;
-                jsonEditor.value = '';
-            }
-        }
-
-        // JSON 转 YAML
-        function jsonToYaml() {
-            const json = jsonEditor.value;
-            if (!json.trim()) {
-                errorInfoJSON.textContent = '请输入 JSON 内容';
-                errorInfoJSON.className = 'error-info show';
-                return;
-            }
-            
-            try {
-                const obj = JSON.parse(json);
-                const yaml = jsyaml.dump(obj, {
-                    indent: 2,
-                    lineWidth: 120,
-                    noRefs: true,
-                    sortKeys: false
-                });
-                yamlEditor.value = yaml;
-                errorInfoJSON.className = 'error-info show success';
-                errorInfoJSON.textContent = '✓ JSON 转换为 YAML 成功';
-                setTimeout(() => {
-                    errorInfoJSON.className = 'error-info';
-                }, 3000);
-            } catch (err) {
-                errorInfoJSON.className = 'error-info show';
-                errorInfoJSON.textContent = '✗ JSON 格式错误: ' + err.message;
-            }
-        }
-
-        // 格式化 YAML
-        function formatYAML() {
-            const yaml = yamlEditor.value;
-            if (!yaml.trim()) {
-                showToast('请输入 YAML 内容', 'error');
-                return;
-            }
-            
-            try {
-                const obj = jsyaml.load(yaml);
-                const formatted = jsyaml.dump(obj, {
-                    indent: 2,
-                    lineWidth: 120,
-                    noRefs: true
-                });
-                yamlEditor.value = formatted;
-                errorInfoYAML.className = 'error-info show success';
-                errorInfoYAML.textContent = '✓ YAML 格式化成功';
-                yamlEditor.classList.remove('error');
-                setTimeout(() => {
-                    errorInfoYAML.className = 'error-info';
-                }, 3000);
-            } catch (err) {
-                yamlEditor.classList.add('error');
-                errorInfoYAML.className = 'error-info show';
-                errorInfoYAML.textContent = '✗ YAML 语法错误: ' + err.message;
-            }
-        }
-
-        // 校验 YAML
-        function validateYAML() {
-            const yaml = yamlEditor.value;
-            if (!yaml.trim()) {
-                showToast('请输入 YAML 内容', 'error');
-                return;
-            }
-            
-            try {
-                jsyaml.load(yaml);
-                errorInfoYAML.className = 'error-info show success';
-                errorInfoYAML.textContent = '✓ YAML 语法校验通过，无错误';
-                yamlEditor.classList.remove('error');
-                setTimeout(() => {
-                    errorInfoYAML.className = 'error-info';
-                }, 3000);
-                showToast('YAML 语法正确', 'success');
-            } catch (err) {
-                yamlEditor.classList.add('error');
-                errorInfoYAML.className = 'error-info show';
-                errorInfoYAML.textContent = '✗ YAML 语法错误: ' + err.message;
-                showToast('YAML 语法错误', 'error');
-            }
-        }
-
-        // 清空所有
-        function clearAll() {
-            yamlEditor.value = '';
-            jsonEditor.value = '';
-            yamlEditor.classList.remove('error');
-            errorInfoYAML.className = 'error-info';
-            errorInfoJSON.className = 'error-info';
-            showToast('已清空所有内容');
-        }
-
-        // 加载示例
-        function loadSample(type) {
-            const samples = {
-                basic: `# 应用配置
-app:
-  name: MyApplication
-  version: 1.0.0
-  environment: production
-  
-server:
-  host: localhost
-  port: 8080
-  ssl:
-    enabled: true
-    cert: /path/to/cert.pem
-    key: /path/to/key.pem
-
-database:
-  type: postgresql
-  host: db.example.com
-  port: 5432
-  name: myapp_db
-  user: admin
-  pool:
-    min: 2
-    max: 10`,
-                
-                array: `# 用户列表
-users:
-  - id: 1
-    name: 张三
-    email: zhangsan@example.com
-    roles:
-      - admin
-      - developer
-    active: true
-    
-  - id: 2
-    name: 李四
-    email: lisi@example.com
-    roles:
-      - user
-    active: true
-    
-  - id: 3
-    name: 王五
-    email: wangwu@example.com
-    roles:
-      - guest
-    active: false`,
-                
-                nested: `# 复杂配置示例
-organization:
-  name: TechCorp
-  founded: 2020
-  departments:
-    engineering:
-      headcount: 50
-      projects:
-        - name: CloudPlatform
-          status: active
-          budget: 5000000
-        - name: MobileApp
-          status: planning
-          budget: 2000000
-    marketing:
-      headcount: 20
-      campaigns:
-        - name: SummerSale
-          startDate: 2024-06-01
-          endDate: 2024-08-31`,
-                
-                k8s: `# Kubernetes Deployment 配置
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-        - name: nginx
-          image: nginx:1.21
-          ports:
-            - containerPort: 80
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
-            requests:
-              memory: "64Mi"
-              cpu: "250m"`,
-                
-                docker: `# Docker Compose 配置
-version: '3.8'
-
-services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    environment:
-      NODE_ENV: production
-      DATABASE_URL: postgres://user:pass@db:5432/myapp
-    depends_on:
-      - db
-      - redis
-    volumes:
-      - ./data:/app/data
-
-  db:
-    image: postgres:14-alpine
-    environment:
-      POSTGRES_DB: myapp
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
-  redis:
-    image: redis:7-alpine
-
-volumes:
-  db_data:
-
-networks:
-  frontend:
-  backend:`,
-                
-                github: `# GitHub Actions 工作流
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-
-env:
-  NODE_VERSION: '18.x'
-  REGISTRY: ghcr.io
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: \${{ env.NODE_VERSION }}
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Run tests
-        run: npm test -- --coverage
-      
-      - name: Build
-        run: npm run build
-  
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Deploy to server
-        run: |
-          echo "Deploying to production server..."`
-            };
-            
-            const sampleNames = {
-                basic: '基础配置',
-                array: '数组对象',
-                nested: '嵌套结构',
-                k8s: 'Kubernetes配置',
-                docker: 'Docker Compose',
-                github: 'GitHub Actions'
-            };
-            
-            yamlEditor.value = samples[type] || samples.basic;
-            yamlEditor.classList.remove('error');
-            errorInfoYAML.className = 'error-info';
-            showToast('已加载示例: ' + sampleNames[type]);
-        }
-
-        // Tab 键支持
-        yamlEditor.addEventListener('keydown', function(e) {
-            if (e.key === 'Tab') {
-                e.preventDefault();
-                const start = this.selectionStart;
-                const end = this.selectionEnd;
-                this.value = this.value.substring(0, start) + '  ' + this.value.substring(end);
-                this.selectionStart = this.selectionEnd = start + 2;
-            }
-        });
-
-        jsonEditor.addEventListener('keydown', function(e) {
-            if (e.key === 'Tab') {
-                e.preventDefault();
-                const start = this.selectionStart;
-                const end = this.selectionEnd;
-                this.value = this.value.substring(0, start) + '  ' + this.value.substring(end);
-                this.selectionStart = this.selectionEnd = start + 2;
-            }
-        });
-
-        // 键盘快捷键
-        document.addEventListener('keydown', function(e) {
-            // Ctrl/Cmd + Enter: 格式化
-            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                e.preventDefault();
-                formatYAML();
-            }
-            // Ctrl/Cmd + Shift + V: 校验
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'V') {
-                e.preventDefault();
-                validateYAML();
-            }
-            // Ctrl/Cmd + Shift + J: JSON 转 YAML
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') {
-                e.preventDefault();
-                jsonToYaml();
-            }
-        });
     </script>
 </body>
 </html>
