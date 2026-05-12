@@ -168,32 +168,51 @@
         
         /* 面包屑导航 */
         .breadcrumb {
-            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 14px 0;
+            font-size: 13px;
         }
         
         .breadcrumb-box {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: #666;
+            gap: 4px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(102,126,234,0.15);
         }
         
-        .breadcrumb-box a {
+        .breadcrumb a {
             color: #667eea;
             text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
         
-        .breadcrumb-box a:hover {
-            text-decoration: underline;
+        .breadcrumb a:hover {
+            color: #764ba2;
+            text-decoration: none;
+            transform: translateX(2px);
         }
         
-        .breadcrumb-box .separator {
-            color: #999;
+        .breadcrumb .separator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            font-weight: bold;
+            margin: 0 2px;
         }
         
-        .breadcrumb-box .current {
-            color: #333;
+        .breadcrumb .current {
+            color: #764ba2;
+            font-weight: 600;
         }
         
         /* 功能区 */
