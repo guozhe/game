@@ -5,20 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <title>UUID在线生成器 - 批量生成唯一标识符 | 开发工具在线</title>
-    <meta name="description" content="免费的在线UUID生成器，支持批量生成UUID v4，可自定义生成数量，一键复制。适用于分布式系统、数据库主键等场景。">
-    <meta name="keywords" content="UUID生成器,UUID在线生成,GUID生成,唯一标识符,批量生成UUID">
+    <title>GUID在线生成器 - 批量生成全局唯一标识符 | 开发工具在线</title>
+    <meta name="description" content="免费的在线GUID生成器，支持批量生成GUID/UUID，可自定义生成数量，一键复制。适用于COM、MFC等微软技术场景，全球唯一标识符生成工具。">
+    <meta name="keywords" content="GUID生成器,GUID在线生成,GUID是什么,全局唯一标识符,批量生成GUID,UUID生成">
     <meta name="author" content="开发工具在线">
-    <link rel="canonical" href="https://kaifagongju.com/uuid.html">
+    <link rel="canonical" href="https://kaifagongju.com/guid.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GUID在线生成器">
+    <meta property="og:description" content="免费的在线GUID生成器，批量生成全局唯一标识符">
+    <meta property="og:url" content="https://kaifagongju.com/guid.html">
+    <meta property="og:site_name" content="开发工具在线">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="GUID在线生成器">
+    <meta name="twitter:description" content="免费的在线GUID生成器">
     
     <!-- 结构化数据 -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "UUID在线生成器",
-        "description": "免费的在线UUID生成器，支持批量生成UUID v4，可自定义生成数量，一键复制。适用于分布式系统、数据库主键等场景。",
-        "url": "https://kaifagongju.com/uuid.html",
+        "name": "GUID在线生成器",
+        "description": "免费的在线GUID生成器，支持批量生成GUID/UUID，可自定义生成数量，一键复制。适用于COM、MFC等微软技术场景，全球唯一标识符生成工具。",
+        "url": "https://kaifagongju.com/guid.html",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "All",
         "offers": {
@@ -43,15 +55,18 @@
             {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "UUID生成",
-                "item": "https://kaifagongju.com/uuid.html"
+                "name": "编码转换",
+                "item": "https://kaifagongju.com/timestamp.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "GUID生成",
+                "item": "https://kaifagongju.com/guid.html"
             }
         ]
     }
     </script>
-    <meta name="description" content="免费的在线UUID生成器，支持批量生成UUID v4，可自定义生成数量，一键复制。适用于分布式系统、数据库主键等场景。">
-    <meta name="keywords" content="UUID生成器,UUID在线生成,GUID生成,唯一标识符,批量生成UUID">
-    <link rel="canonical" href="https://kaifagongju.com/uuid.html">
     
     <!-- 页面图标 -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -222,7 +237,7 @@
         }
         
         .tool-header {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 20px;
             text-align: center;
@@ -329,7 +344,7 @@
             line-height: 1.8;
         }
         
-        .output-area .uuid-item {
+        .output-area .guid-item {
             color: #abb2bf;
             padding: 4px 0;
             display: flex;
@@ -337,18 +352,18 @@
             gap: 10px;
         }
         
-        .output-area .uuid-item .index {
+        .output-area .guid-item .index {
             color: #565c64;
             min-width: 50px;
             text-align: right;
         }
         
-        .output-area .uuid-item .uuid {
+        .output-area .guid-item .guid {
             color: #98c379;
             font-size: 15px;
         }
         
-        .output-area .uuid-item .copy-btn {
+        .output-area .guid-item .copy-btn {
             background: none;
             border: none;
             color: #565c64;
@@ -360,16 +375,16 @@
             transition: all 0.2s;
         }
         
-        .output-area .uuid-item:hover .copy-btn {
+        .output-area .guid-item:hover .copy-btn {
             opacity: 1;
         }
         
-        .output-area .uuid-item .copy-btn:hover {
+        .output-area .guid-item .copy-btn:hover {
             background: rgba(255,255,255,0.1);
             color: #abb2bf;
         }
         
-        .output-area .uuid-item .copy-btn.copied {
+        .output-area .guid-item .copy-btn.copied {
             color: #98c379;
         }
         
@@ -440,6 +455,25 @@
             font-family: "SF Mono", Consolas, monospace;
             font-size: 13px;
             color: #667eea;
+        }
+        
+        .info-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .info-section ul li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+        
+        .info-section ul li::before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
         }
         
         /* 底部 */
@@ -588,7 +622,9 @@
     <nav class="navbar">
         <div class="container">
             <a href="/" class="logo">
-                <span class="logo-icon"><img src="/images/logo.png" alt="开发工具在线"></span>
+                <div class="logo-icon">
+                    <span style="font-size: 20px;">🛠️</span>
+                </div>
                 开发工具在线
             </a>
             <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
@@ -616,7 +652,7 @@
                         <a href="/md5.html">MD5加密</a>
                         <div class="nav-dropdown-divider"></div>
                         <a href="/uuid.html">UUID生成</a>
-                        <a href="/guid.html">GUID生成</a>
+                        <a href="/guid.html" class="active">GUID生成</a>
                     </div>
                 </div>
                 
@@ -654,7 +690,7 @@
                 <span class="separator">›</span>
             </span>
             <span class="breadcrumb-box">
-                <span class="current">🎲 UUID生成</span>
+                <span class="current">🎯 GUID生成</span>
             </span>
         </nav>
     </div>
@@ -662,8 +698,8 @@
     <main class="container">
         <article class="tool-section">
             <header class="tool-header">
-                <h1>🎲 UUID在线生成器</h1>
-                <p>批量生成UUID v4格式唯一标识符，支持一键复制</p>
+                <h1>🎯 GUID在线生成器</h1>
+                <p>批量生成GUID全局唯一标识符，支持一键复制</p>
             </header>
             
             <div class="tool-content">
@@ -671,8 +707,8 @@
                 <div class="action-bar">
                     <label for="count">生成数量：</label>
                     <input type="number" id="count" value="10" min="1" max="1000">
-                    <button class="btn btn-primary" onclick="generateUUIDs()">
-                        <span>🎲</span> 生成UUID
+                    <button class="btn btn-primary" onclick="generateGUIDs()">
+                        <span>🎯</span> 生成GUID
                     </button>
                     <button class="btn btn-success" onclick="copyAll()">
                         <span>📋</span> 复制全部
@@ -682,35 +718,58 @@
                     </button>
                 </div>
                 
-                <!-- UUID输出区域 -->
+                <!-- GUID输出区域 -->
                 <div class="output-area" id="outputArea">
                     <div class="empty-state">
-                        <div class="icon">🎲</div>
-                        <p>点击"生成UUID"按钮开始生成</p>
+                        <div class="icon">🎯</div>
+                        <p>点击"生成GUID"按钮开始生成</p>
                     </div>
                 </div>
             </div>
         </article>
         
-        <!-- UUID说明 -->
+        <!-- GUID说明 -->
         <section class="info-section">
-            <h2>什么是UUID？</h2>
-            <p><strong>UUID</strong>（Universally Unique Identifier）通用唯一识别码，是一种软件建构的标准。</p>
-            <p>UUID由32位数的16进制数字构成，以连字号分为五段，形式为 <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></p>
-            <p>示例：<code>550e8400-e29b-41d4-a716-446655440000</code></p>
-            <p>理论总数为 16<sup>32</sup> = 2<sup>128</sup> ≈ 3.4 × 10<sup>38</sup></p>
+            <h2>什么是GUID？</h2>
+            <p><strong>GUID</strong>（Globally Unique Identifier）全局唯一标识符，是一个128位的数字标识符。</p>
+            <p>GUID由微软提出，用于COM和MFC等微软技术中，是UUID标准的一种实现形式。</p>
+            <p>格式为 <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>（8-4-4-4-12），共32个十六进制数字</p>
+            <p>示例：<code>{550E8400-E29B-41D4-A716-446655440000}</code></p>
+            <p>理论总数为 2<sup>128</sup> ≈ 3.4 × 10<sup>38</sup></p>
+            
+            <h2 style="margin-top: 20px;">GUID与UUID的区别</h2>
+            <ul>
+                <li><strong>UUID</strong> - 通用唯一标识符，是开放标准（RFC 4122）</li>
+                <li><strong>GUID</strong> - 全局唯一标识符，是微软对UUID标准的实现</li>
+                <li>技术实现上，GUID和UUID v4格式基本相同</li>
+                <li>Microsoft Visual C++使用<code>CoCreateGuid()</code>函数生成GUID</li>
+            </ul>
             
             <h2 style="margin-top: 20px;">应用场景</h2>
-            <p>• 分布式系统的唯一标识</p>
-            <p>• 数据库主键生成</p>
-            <p>• 会话ID、追踪码</p>
-            <p>• 微软GUID、Linux文件系统标识</p>
+            <ul>
+                <li>COM组件和ActiveX控件的唯一标识</li>
+                <li>MFC/ATL程序中的类ID、接口ID</li>
+                <li>分布式系统的唯一标识符</li>
+                <li>数据库主键和记录唯一标识</li>
+                <li>注册表项的键值标识</li>
+                <li>Windows系统中的各种唯一ID</li>
+            </ul>
+        </section>
+        
+        <!-- 相关工具 -->
+        <section class="info-section">
+            <h2>相关工具</h2>
+            <ul>
+                <li><a href="/uuid.html">🔑 UUID生成器</a> - 生成标准UUID格式</li>
+                <li><a href="/md5.html">🔒 MD5加密</a> - 字符串MD5哈希计算</li>
+                <li><a href="/base64.html">🔐 Base64编码</a> - Base64加密解密工具</li>
+            </ul>
         </section>
     </main>
     
     <!-- 底部 -->
     <footer>
-        <p>&copy; 2024 开发工具在线 - 让开发更高效</p>
+        <p>© 2024 开发工具在线 - 让开发更高效</p>
         <p style="margin-top: 10px;">
             <a href="/">首页</a> · 
             <a href="/about.html">关于我们</a> · 
@@ -722,8 +781,8 @@
     <div class="toast" id="toast"></div>
     
     <script>
-        // 生成UUID v4
-        function generateUUID() {
+        // 生成GUID (基于UUID v4格式)
+        function generateGUID() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 var r = Math.random() * 16 | 0;
                 var v = c === 'x' ? r : (r & 0x3 | 0x8);
@@ -731,27 +790,33 @@
             });
         }
         
-        // 生成多个UUID
-        function generateUUIDs() {
+        // 格式化GUID（带大括号）
+        function formatGUID(guid) {
+            return '{' + guid.toUpperCase() + '}';
+        }
+        
+        // 生成多个GUID
+        function generateGUIDs() {
             const count = parseInt(document.getElementById('count').value) || 10;
             const outputArea = document.getElementById('outputArea');
             let html = '';
             
             for (let i = 1; i <= count; i++) {
-                const uuid = generateUUID();
-                html += `<div class="uuid-item">
+                const guid = generateGUID();
+                const formattedGuid = formatGUID(guid);
+                html += `<div class="guid-item">
                     <span class="index">${i}.</span>
-                    <span class="uuid">${uuid}</span>
-                    <button class="copy-btn" onclick="copySingle(this, '${uuid}')">复制</button>
+                    <span class="guid">${formattedGuid}</span>
+                    <button class="copy-btn" onclick="copySingle(this, '${formattedGuid}')">复制</button>
                 </div>`;
             }
             
             outputArea.innerHTML = html;
         }
         
-        // 复制单个UUID
-        function copySingle(btn, uuid) {
-            copyToClipboard(uuid);
+        // 复制单个GUID
+        function copySingle(btn, guid) {
+            copyToClipboard(guid);
             btn.textContent = '已复制';
             btn.classList.add('copied');
             setTimeout(() => {
@@ -760,25 +825,25 @@
             }, 1500);
         }
         
-        // 复制全部UUID
+        // 复制全部GUID
         function copyAll() {
-            const uuids = document.querySelectorAll('.uuid-item .uuid');
-            if (uuids.length === 0) {
-                showToast('请先生成UUID', 'error');
+            const guids = document.querySelectorAll('.guid-item .guid');
+            if (guids.length === 0) {
+                showToast('请先生成GUID', 'error');
                 return;
             }
             
-            const allUUIDs = Array.from(uuids).map(el => el.textContent).join('\n');
-            copyToClipboard(allUUIDs);
-            showToast(`已复制 ${uuids.length} 个UUID到剪贴板`, 'success');
+            const allGUIDs = Array.from(guids).map(el => el.textContent).join('\n');
+            copyToClipboard(allGUIDs);
+            showToast(`已复制 ${guids.length} 个GUID到剪贴板`, 'success');
         }
         
         // 清空
         function clearAll() {
             const outputArea = document.getElementById('outputArea');
             outputArea.innerHTML = `<div class="empty-state">
-                <div class="icon">🎲</div>
-                <p>点击"生成UUID"按钮开始生成</p>
+                <div class="icon">🎯</div>
+                <p>点击"生成GUID"按钮开始生成</p>
             </div>`;
         }
         
