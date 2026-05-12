@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线 Markdown 编辑器 - 开发工具在线</title>
+    <meta name="description" content="免费的在线Markdown编辑器，支持实时预览、语法高亮、快捷工具栏，适合编写文档和技术文章。">
+    <link rel="stylesheet" href="/lib/font-awesome/all.min.css">
+    <link rel="stylesheet" href="/lib/toastui/toastui-editor.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item > a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        
+        .nav-item > a:hover, .nav-item > a.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .nav-item > a .arrow {
+            font-size: 10px;
+            transition: transform 0.2s;
+        }
+        
+        .nav-item:hover > a .arrow {
+            transform: rotate(180deg);
+        }
+        
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            min-width: 180px;
+            padding: 8px 0;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .nav-item:hover > .nav-dropdown {
+            display: block;
+        }
+        
+        .nav-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        
+        .nav-dropdown a:hover {
+            background: #f5f7fa;
+            color: #667eea;
+        }
+        
+        .nav-dropdown a.active {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .nav-dropdown-divider {
+            height: 1px;
+            background: #e1e4e8;
+            margin: 8px 0;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            padding: 15px 0;
+        }
+        
+        .breadcrumb-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .breadcrumb-box a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-box a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb-box .separator {
+            color: #999;
+        }
+        
+        .breadcrumb-box .current {
+            color: #333;
+        }
+        
+        /* 功能区 */
+        .tool-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .tool-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .tool-header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .tool-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .tool-content {
+            padding: 20px;
+        }
+        
+        /* Toast UI Editor 容器 */
+        .editor-wrapper {
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #editor {
+            width: 100%;
+            height: 600px;
+        }
+        
+        /* Toast UI Editor 自定义样式 */
+        .toastui-editor-defaultUI {
+            border: none !important;
+            border-radius: 0;
+        }
+        
+        .toastui-editor-toolbar {
+            border-bottom: 1px solid #e1e4e8;
+        }
+        
+        .toastui-editor-contents {
+            height: calc(100% - 45px);
+        }
+        
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        /* 操作按钮 */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+        }
+        
+        /* Toast 提示 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 12px 24px;
+            background: #333;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                flex-direction: column;
+                padding: 10px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-dropdown {
+                position: static;
+                box-shadow: none;
+                background: rgba(255,255,255,0.1);
+                padding-left: 15px;
+            }
+            
+            .nav-dropdown a {
+                color: rgba(255,255,255,0.9);
+            }
+            
+            .nav-dropdown a:hover {
+                background: rgba(255,255,255,0.1);
+                color: white;
+            }
+            
+            #editor {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon"><img src="/images/logo.png" alt="开发工具在线"></span>
+                开发工具在线
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <!-- JSON工具 -->
+                <div class="nav-item">
+                    <a href="/">JSON解析 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/">JSON解析</a>
+                        <a href="/json-format.html">JSON格式化</a>
+                        <a href="/json-compress.html">JSON压缩</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/json-to-java.html">JSON转Java</a>
+                        <a href="/json-to-python.html">JSON转Python</a>
+                    </div>
+                </div>
+                
+                <!-- 编码转换 -->
+                <div class="nav-item">
+                    <a href="/timestamp.html">编码转换 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/timestamp.html">时间戳转换</a>
+                        <a href="/url-encode.html">URL编码解码</a>
+                        <a href="/base64.html">Base64编码解码</a>
+                        <a href="/md5.html">MD5加密</a>
+                        <div class="nav-dropdown-divider"></div>
+                        <a href="/uuid.html">UUID生成</a>
+                        <a href="/guid.html">GUID生成</a>
+                    </div>
+                </div>
+                
+                <!-- 文本工具 -->
+                <div class="nav-item">
+                    <a href="/markdown.html" class="active">文本工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/markdown.html" class="active">Markdown编辑器</a>
+                    </div>
+                </div>
+                
+                <!-- 设计工具 -->
+                <div class="nav-item">
+                    <a href="/color-converter.html">设计工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/color-converter.html">颜色转换</a>
+                        <a href="/tables.html">常用对照表</a>
+                    </div>
+                </div>
+                
+                <!-- 更多工具 -->
+                <div class="nav-item">
+                    <a href="/tables.html">更多工具 <span class="arrow">▼</span></a>
+                    <div class="nav-dropdown">
+                        <a href="/tables.html">常用对照表</a>
+                        <a href="/diff.html">代码对比</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 面包屑导航 -->
+    <div class="container">
+        <nav class="breadcrumb" aria-label="面包屑导航">
+            <span class="breadcrumb-box">
+                <a href="/">🏠 首页</a>
+                <span class="separator">›</span>
+                <span class="current">Markdown编辑器</span>
+            </span>
+        </nav>
+    </div>
+    
+    <!-- 主功能区 -->
+    <main class="container">
+        <article class="tool-section">
+            <header class="tool-header">
+                <h1>在线 Markdown 编辑器</h1>
+                <p>支持实时预览、语法高亮、快捷工具栏，适合编写文档和技术文章</p>
+            </header>
+            
+            <div class="tool-content">
+                <!-- 编辑器 -->
+                <div class="editor-wrapper">
+                    <div id="editor"></div>
+                </div>
+                
+                <!-- 操作按钮 -->
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="copyMarkdown()">
+                        <i class="fas fa-copy"></i> 复制 Markdown
+                    </button>
+                    <button class="btn btn-primary" onclick="copyHTML()">
+                        <i class="fas fa-code"></i> 复制 HTML
+                    </button>
+                    <button class="btn btn-success" onclick="downloadFile()">
+                        <i class="fas fa-download"></i> 下载文件
+                    </button>
+                </div>
+            </div>
+        </article>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 开发工具在线 - 免费在线工具集合</p>
+        </div>
+    </footer>
+    
+    <!-- Toast提示 -->
+    <div id="toast" class="toast"></div>
+    
+    <!-- Toast UI Editor -->
+    <script src="/lib/toastui/toastui-editor-all.min.js"></script>
+    <script>
+        // 初始化 Toast UI Editor
+        const editor = new toastui.Editor({
+            el: document.querySelector('#editor'),
+            initialEditType: 'markdown',
+            previewStyle: 'vertical',
+            height: '600px',
+            initialValue: `# Markdown 编辑器
+
+欢迎使用 **在线 Markdown 编辑器**！这是一款简洁高效的文档编写工具。
+
+## 基本语法
+
+### 文本样式
+支持 **粗体**、*斜体*、~~删除线~~ 等格式。
+
+### 引用
+> 这是一段引用文本，可以用来强调重要内容。
+
+### 代码
+行内代码：\`const greeting = "Hello World"\`
+
+代码块：
+\`\`\`javascript
+function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+\`\`\`
+
+## 列表
+
+### 无序列表
+- 列表项一
+- 列表项二
+- 列表项三
+
+### 有序列表
+1. 第一步
+2. 第二步
+3. 第三步
+
+### 任务列表
+- [x] 完成需求分析
+- [x] 设计界面原型
+- [ ] 开发后端API
+- [ ] 编写前端代码
+
+## 链接
+
+[访问 GitHub](https://github.com)
+
+## 表格
+
+| 功能 | 说明 |
+| ------ | ------ |
+| 实时预览 | 边写边看效果 |
+| 快捷工具栏 | 快速插入格式 |
+| 主题切换 | 支持深色模式 |
+
+---
+
+试试工具栏上的按钮，或直接编辑上方文本吧！`,
+            hooks: {
+                addImageBlobHook: (blob, callback) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        callback(e.target.result, 'image');
+                    };
+                    reader.readAsDataURL(blob);
+                }
+            }
+        });
+        
+        // 复制 Markdown 源码
+        function copyMarkdown() {
+            const markdown = editor.getMarkdown();
+            copyToClipboard(markdown, 'Markdown 已复制到剪贴板');
+        }
+        
+        // 复制 HTML
+        function copyHTML() {
+            const html = editor.getHTML();
+            copyToClipboard(html, 'HTML 已复制到剪贴板');
+        }
+        
+        // 下载文件
+        function downloadFile() {
+            const markdown = editor.getMarkdown();
+            const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'document.md';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('文件已开始下载');
+        }
+        
+        // 通用复制函数
+        function copyToClipboard(text, message) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(message);
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast(message);
+            });
+        }
+        
+        // 显示提示
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+        
+        // 移动端菜单
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
